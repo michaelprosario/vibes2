@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Claude Code Best Practices</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/black.css" id="theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Tailwind CSS for custom styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        :root {
+            --r-main-font: 'Inter', sans-serif;
+        }
+
+        .reveal .slides section h1,
+        .reveal .slides section h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #4ade80; /* Green for headings */
+        }
+
+        .reveal .slides section p,
+        .reveal .slides section ul,
+        .reveal .slides section li {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: #e2e8f0; /* Light gray for text */
+        }
+
+        .reveal .slides section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .reveal .slides section ul li:before {
+            content: "\2022"; /* Bullet point */
+            color: #4ade80; /* Green bullet */
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .reveal .slides section .fragment {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .reveal .slides section .fragment.visible {
+            opacity: 1;
+        }
+
+        .reveal .slides section code {
+            background-color: #2d3748; /* Darker gray for code */
+            color: #f6e05e; /* Yellow for code text */
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+        }
+
+        .reveal .slides section .icon {
+            color: #4ade80;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section>
+                <h1 class="text-6xl mb-4">Claude Code</h1>
+                <h2 class="text-4xl text-gray-300">Best Practices for Agentic Coding</h2>
+                <p class="text-xl mt-8">Leveraging the Power of CLI</p>
+                
+            </section>
+
+            <!-- What is Claude Code? -->
+            <section>
+                <h2 class="text-5xl">What is Claude Code?</h2>
+                <ul class="text-3xl mt-8 leading-relaxed">
+                    <li class="fragment fade-in">A command-line tool for agentic coding by Anthropic.</li>
+                    <li class="fragment fade-in">Designed to be <span class="text-green-400 font-bold">low-level</span> and <span class="text-green-400 font-bold">unopinionated</span>.</li>
+                    <li class="fragment fade-in">Offers engineers <span class="text-green-400 font-bold">flexibility</span> and <span class="text-green-400 font-bold">customization</span>.</li>
+                    <li class="fragment fade-in">Enables programmatic interaction with large language models for code generation and manipulation.</li>
+                </ul>
+            </section>
+
+            <!-- Benefits of CLI Thinking -->
+            <section>
+                <h2 class="text-5xl">Benefits of CLI Thinking</h2>
+                <p class="text-3xl mt-8 mb-6">Why a Command-Line Interface Approach?</p>
+                <ul class="text-3xl leading-relaxed">
+                    <li class="fragment fade-in"><i class="icon fas fa-cogs"></i> <span class="text-green-400">Automation:</span> Easily script and integrate into existing workflows.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-terminal"></i> <span class="text-green-400">Control & Precision:</span> Fine-grained control over inputs and outputs.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-wrench"></i> <span class="text-green-400">Flexibility:</span> Adapt to diverse tasks without GUI limitations.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-robot"></i> <span class="text-green-400">Agentic Capabilities:</span> Ideal for building intelligent agents that interact with code.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-code"></i> <span class="text-green-400">Reproducibility:</span> Commands can be easily logged and re-run.</li>
+                </ul>
+            </section>
+
+            <!-- Best Practice: Customizing Setup -->
+            <section>
+                <h2 class="text-5xl">Best Practice: Customizing Setup</h2>
+                <ul class="text-3xl mt-8 leading-relaxed">
+                    <li class="fragment fade-in"><i class="icon fas fa-file-alt"></i> <span class="text-green-400">Tune `CLAUDE.md` files:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Provide essential context for Claude.</li>
+                            <li class="fragment fade-in">Guide its behavior and understanding of the codebase.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> Describe project structure, coding conventions, or specific library usages.</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in mt-4"><i class="icon fas fa-toolbox"></i> <span class="text-green-400">Curate Claude's Tools:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Selectively allow tools for safety and efficiency.</li>
+                            <li class="fragment fade-in">Prevent unintended actions or access.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> Restrict file deletion or network access if not required for the task.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Best Practice: Expanding Tools -->
+            <section>
+                <h2 class="text-5xl">Best Practice: Expanding Claude's Tools</h2>
+                <ul class="text-3xl mt-8 leading-relaxed">
+                    <li class="fragment fade-in"><i class="icon fas fa-terminal"></i> <span class="text-green-400">Leverage Bash Tools:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Integrate standard command-line utilities.</li>
+                            <li class="fragment fade-in"><em>Example:</em> Use `grep -r "TODO"` to find all TODOs in the codebase, or `git diff` to review changes.</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in mt-4"><i class="icon fas fa-server"></i> <span class="text-green-400">Integrate with company CLI tools or MCP Servers:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Connect to internal services, data cli tools, and APIs.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> Allow Claude to query an internal logging service or deploy a test build.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Common Workflows (Part 1) -->
+            <section>
+                <h2 class="text-5xl">Common Workflows: Development</h2>
+                <ul class="text-3xl mt-8 leading-relaxed">
+                    <li class="fragment fade-in"><i class="icon fas fa-map-signs"></i> <span class="text-green-400">Explore, Plan, Code, Commit:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">For complex problem-solving.</li>
+                            <li class="fragment fade-in">Structured approach for new features/bugs.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> "Explore the `auth` module, plan how to add OAuth, then implement and commit."</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in mt-4"><i class="icon fas fa-vial"></i> <span class="text-green-400">Write Tests, Commit; Code, Iterate, Commit:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Test-Driven Development (TDD) with Claude.</li>
+                            <li class="fragment fade-in">Ensures correctness and regression prevention.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> "Write a failing test for the new `calculate_discount` function, commit it, then write the function until the test passes."</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Common Workflows (Part 2) -->
+            <section>
+                <h2 class="text-5xl">Common Workflows: Beyond Coding</h2>
+                <ul class="text-3xl mt-8 leading-relaxed">
+                    <li class="fragment fade-in"><i class="icon fas fa-eye"></i> <span class="text-green-400">Write Code, Screenshot Result, Iterate:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Ideal for visual tasks (UI/UX).</li>
+                            <li class="fragment fade-in">Claude gets visual feedback.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> "Generate CSS for a button, I'll provide a screenshot, then refine based on visual feedback."</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in mt-4"><i class="icon fas fa-question-circle"></i> <span class="text-green-400">Codebase Q&A and GitHub Interactions:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Querying code for understanding.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Optimizing Workflows (Part 1) -->
+            <section>
+                <h2 class="text-5xl">Optimizing Workflows: Instructions</h2>
+                <ul class="text-3xl mt-8 leading-relaxed">
+                    <li class="fragment fade-in"><i class="icon fas fa-bullseye"></i> <span class="text-green-400">Be Specific in Instructions:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Clear, unambiguous prompts yield better results.</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in mt-4"><i class="icon fas fa-image"></i> <span class="text-green-400">Provide Images and URLs:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Visual context is powerful for Claude.</li>
+                            <li class="fragment fade-in">Point to relevant documentation or examples.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> "Make the button look like the one at `https://example.com/design-system/button`" or "Here's a screenshot of the current UI, make the text bold."</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in mt-4"><i class="icon fas fa-undo-alt"></i> <span class="text-green-400">Course-Correct Early and Often:</span>
+                        <ul class="text-2xl ml-8 mt-2">
+                            <li class="fragment fade-in">Don't let Claude stray too far.</li>
+                            <li class="fragment fade-in text-gray-400"><em>Example:</em> If Claude starts modifying unrelated files, immediately stop and redirect it to the correct scope.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+
+            <!-- Conclusion -->
+            <section>
+                <h2 class="text-5xl">Conclusion</h2>
+                <p class="text-3xl mt-8 mb-6">Mastering Claude Code for Efficient Agentic Coding</p>
+                <ul class="text-3xl leading-relaxed">
+                    <li class="fragment fade-in"><i class="icon fas fa-check-circle"></i> <span class="text-green-400">Customize</span> your setup for optimal context.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-check-circle"></i> <span class="text-green-400">Expand</span> Claude's capabilities with more tools.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-check-circle"></i> Adopt <span class="text-green-400">effective workflows</span> for various tasks.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-check-circle"></i> <span class="text-green-400">Optimize</span> interactions with clear instructions and feedback.</li>
+                    <li class="fragment fade-in"><i class="icon fas fa-check-circle"></i> Explore <span class="text-green-400">advanced techniques</span> for automation and collaboration.</li>
+                </ul>
+                <p class="text-xl mt-12 text-gray-400">Happy Coding with Claude!</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    <script>
+        // More info about config & dependencies:
+        // - https://revealjs.com/config/
+        // - https://revealjs.com/dependencies/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            dependencies: [
+                { src: 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/highlight.js', async: true },
+                { src: 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+</body>
+</html>

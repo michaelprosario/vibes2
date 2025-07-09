@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.controls {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.canvas-controls, .file-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#new-canvas {
+    background-color: #3498db;
+    color: white;
+}
+
+#save {
+    background-color: #27ae60;
+    color: white;
+}
+
+#load {
+    background-color: #f39c12;
+    color: white;
+}
+
+#export {
+    background-color: #e74c3c;
+    color: white;
+}
+
+main {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.editor {
+    display: flex;
+    gap: 20px;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 200px;
+}
+
+.tools {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tool {
+    padding: 10px;
+    background-color: #ecf0f1;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tool.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+}
+
+.tool:hover {
+    background-color: #bdc3c7;
+}
+
+.tool.active:hover {
+    background-color: #2980b9;
+}
+
+.color-palette {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.current-color {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    background-color: #000;
+    cursor: pointer;
+}
+
+.palette-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 2px;
+    background-color: #ddd;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+}
+
+.canvas-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sprite-canvas {
+    border: 2px solid #333;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+@media (max-width: 768px) {
+    .editor {
+        flex-direction: column;
+    }
+    
+    .toolbar {
+        flex-direction: row;
+        min-width: auto;
+    }
+    
+    .tools {
+        flex-direction: row;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

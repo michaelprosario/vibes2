@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Sprite Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pixel Sprite Editor</h1>
+            <div class="controls">
+                <div class="canvas-controls">
+                    <label for="width">Width:</label>
+                    <input type="number" id="width" min="1" max="64" value="16">
+                    <label for="height">Height:</label>
+                    <input type="number" id="height" min="1" max="64" value="16">
+                    <button id="new-canvas">New Canvas</button>
+                </div>
+                <div class="file-controls">
+                    <button id="save">Save</button>
+                    <button id="load">Load</button>
+                    <button id="export">Export JPEG</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="editor">
+                <div class="toolbar">
+                    <div class="tools">
+                        <button id="pencil" class="tool active">Pencil</button>
+                        <button id="eraser" class="tool">Eraser</button>
+                    </div>
+                    <div class="color-palette">
+                        <div class="current-color" id="current-color"></div>
+                        <div class="palette-grid" id="palette-grid"></div>
+                    </div>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="sprite-canvas"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <input type="file" id="file-input" accept=".json" style="display: none;">
+    <script src="script.js"></script>
+</body>
+</html>
