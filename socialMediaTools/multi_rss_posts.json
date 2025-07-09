@@ -250,64 +250,99 @@
     "source": "https://changelog.com/feed"
   },
   {
-    "title": "100+ Typed and Tested React Hooks You’ll Actually Use in Production",
-    "link": "https://dev.to/taarnn/100-typed-and-tested-react-hooks-youll-actually-use-in-production-afk",
+    "title": "GitHub Integration in VS Code Using Docker MCP: A Step-by-Step Tutorial",
+    "link": "https://dev.to/om_shree_0709/github-integration-in-vs-code-using-docker-mcp-a-step-by-step-tutorial-3ddg",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "Beyond The Screen: Creating Immersive User Experiences with AR/VR in UI/UX",
-    "link": "https://dev.to/jennysmith7/beyond-the-screen-creating-immersive-user-experiences-with-arvr-in-uiux-2ahg",
+    "title": "Getting started with Claude 4 API: A developer’s walkthrough",
+    "link": "https://dev.to/logrocket/getting-started-with-claude-4-api-a-developers-walkthrough-1n1b",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "Dictionary Comprehensions in Python: Powerful, Elegant, and Fast",
-    "link": "https://dev.to/techienadeem/dictionary-comprehensions-in-python-powerful-elegant-and-fast-3434",
+    "title": "🚀 What’s New in Ruby 3.4 – The Language We Love Keeps Getting Sharper",
+    "link": "https://dev.to/obaidaashfaq20/whats-new-in-ruby-34-the-language-we-love-keeps-getting-sharper-1e10",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "Technical Blog Writing Guide",
-    "link": "https://dev.to/github-recommend/technical-blog-writing-guide-54fc",
+    "title": "Building a Modern, Type-Safe Authentication System for Django REST Framework",
+    "link": "https://dev.to/huynguyengl99/building-a-modern-type-safe-authentication-system-for-django-rest-framework-c42",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "MLOps",
-    "link": "https://dev.to/shubham_gupta_0adedafd271/mlops-5585",
+    "title": "Fun Operators of JavaScript – Compare & Conquer!",
+    "link": "https://dev.to/megha_m/fun-operators-of-javascript-compare-conquer-11hp",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "From Prompt to Pixel: A Look at Generative AI in Visual Content",
-    "link": "https://dev.to/azhan_j_71b0e414743b0dc0e/from-prompt-to-pixel-a-look-at-generative-ai-in-visual-content-56hn",
+    "title": "\"Operator overload? Not Anymore - JS Operators Made Easy!\"",
+    "link": "https://dev.to/praveena_2109/operator-overload-not-anymore-js-operators-made-easy-3514",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "How to Design a Basket Using 3D CAD Software",
-    "link": "https://dev.to/julia970/how-to-design-a-basket-using-3d-cad-software-gcp",
+    "title": "Web Developer Travis McCracken on DevOps Tips from a Web Developer",
+    "link": "https://dev.to/travis-mccracken-dev/web-developer-travis-mccracken-on-devops-tips-from-a-web-developer-n98",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "Networking Fundamentals: QoS",
-    "link": "https://dev.to/devopsfundamentals/networking-fundamentals-qos-4akm",
+    "title": "Compiled Vs Interpreted Language",
+    "link": "https://dev.to/sevaki_rajasekar_700822f9/compiled-vs-interpreted-language-5am3",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "Cross Platform Tool Building Universal Web Applications Advanced",
-    "link": "https://dev.to/github-recommend/cross-platform-tool-building-universal-web-applications-advanced-3bhg",
+    "title": "Bidirectional Communication Protocols",
+    "link": "https://dev.to/github-recommend/bidirectional-communication-protocols-n8c",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "How to Design a Toilet Paper Roller Using 3D CAD Software",
-    "link": "https://dev.to/julia970/how-to-design-a-toilet-paper-roller-using-3d-cad-software-c4l",
+    "title": "Luz do Mundo",
+    "link": "https://dev.to/franciscobatistajunior/luz-do-mundo-2hhk",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "I’m BGOD, Starting My Tech Journey From Scratch — Watch Me Build",
-    "link": "https://dev.to/bgod/im-bgod-starting-my-tech-journey-from-scratch-watch-me-build-168g",
+    "title": "Hashtag CMS",
+    "link": "https://dev.to/marghoobsuleman/hashtag-cms-3c76",
     "source": "https://dev.to/feed"
   },
   {
-    "title": "Practical approach to interface, delegate, events in Unity",
-    "link": "https://dev.to/kwesikwaa/practical-approach-to-interface-delegate-events-in-unity-2d57",
+    "title": "Ubuntu Fundamentals: groups",
+    "link": "https://dev.to/devopsfundamentals/ubuntu-fundamentals-groups-pk6",
     "source": "https://dev.to/feed"
+  },
+  {
+    "title": "PR is your scaling power: Learn from Insight Partners’ Nikki Parker at TechCrunch All Stage",
+    "link": "https://techcrunch.com/2025/07/09/pr-is-your-scaling-power-learn-from-insight-partners-nikki-parker-at-techcrunch-all-stage/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Google brings Gemini to Wear OS watches, adds AI Mode to Circle to Search",
+    "link": "https://techcrunch.com/2025/07/09/google-brings-gemini-to-wear-os-watches-adds-ai-mode-to-circle-to-search/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Samsung launches Z Fold7 and Z Flip7, adds a cheaper Z Flip7 FE to its foldable lineup",
+    "link": "https://techcrunch.com/2025/07/09/samsung-launches-z-fold7-and-z-flip7-adds-a-cheaper-z-flip7-fe-to-its-foldable-lineup/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "6 days until TechCrunch All Stage kicks off in Boston — and up to $475 in ticket savings disappear",
+    "link": "https://techcrunch.com/2025/07/09/6-days-until-techcrunch-all-stage-kicks-off-in-boston-and-up-to-475-in-ticket-savings-disappear/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Samsung brings back the Classic version for the Watch8 series",
+    "link": "https://techcrunch.com/2025/07/09/samsung-brings-back-the-classic-version-for-the-watch8-series/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Moroccan founder raises $4.2M for her YC-backed startup building the next layer of AI search",
+    "link": "https://techcrunch.com/2025/07/09/moroccan-founder-raises-4-2m-for-her-yc-backed-startup-building-the-next-layer-of-ai-search/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "How to protect your cell phone number from SIM swap attacks",
+    "link": "https://techcrunch.com/2025/07/09/how-to-protect-your-cell-phone-number-from-sim-swap-attacks/",
+    "source": "https://techcrunch.com/feed/"
   },
   {
     "title": "Hugging Face opens up orders for its Reachy Mini desktop robots",
@@ -375,39 +410,19 @@
     "source": "https://techcrunch.com/feed/"
   },
   {
-    "title": "In a blow to Google Cloud, Replit partners with Microsoft",
-    "link": "https://techcrunch.com/2025/07/08/in-a-blow-to-google-cloud-replit-partners-with-microsoft/",
-    "source": "https://techcrunch.com/feed/"
+    "title": "201 Prime Day Deals Picked By People Who Obsessively Test Gear",
+    "link": "https://www.wired.com/story/best-amazon-prime-deals-july-2025-1/",
+    "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "Teenagers can now hail a Waymo robotaxi in Phoenix",
-    "link": "https://techcrunch.com/2025/07/08/teenagers-can-now-hail-a-waymo-robotaxi-in-phoenix/",
-    "source": "https://techcrunch.com/feed/"
+    "title": "Everything Samsung Announced at Its Summer Galaxy Unpacked Event",
+    "link": "https://www.wired.com/story/everything-samsung-announced-at-its-summer-galaxy-unpacked-event-july-2025/",
+    "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "ByteDance reportedly plans to release US-specific version of CapCut",
-    "link": "https://techcrunch.com/2025/07/08/bytedance-reportedly-plans-to-release-us-specific-version-of-capcut/",
-    "source": "https://techcrunch.com/feed/"
-  },
-  {
-    "title": "Bookshop.org mocks Jeff Bezos wedding invite in anti-Prime Day promo",
-    "link": "https://techcrunch.com/2025/07/08/bookshop-org-mocks-jeff-bezos-wedding-invite-in-anti-prime-day-promo/",
-    "source": "https://techcrunch.com/feed/"
-  },
-  {
-    "title": "Thank you to the visionaries: Celebrating the partners behind TechCrunch All Stage",
-    "link": "https://techcrunch.com/2025/07/08/thank-you-to-the-visionaries-celebrating-the-partners-behind-techcrunch-all-stage/",
-    "source": "https://techcrunch.com/feed/"
-  },
-  {
-    "title": "The tech behind Rivian’s 2026 Quad Motor truck and SUV — and that kick turn",
-    "link": "https://techcrunch.com/2025/07/08/the-tech-behind-rivians-2026-quad-motor-truck-and-suv-and-that-kick-turn/",
-    "source": "https://techcrunch.com/feed/"
-  },
-  {
-    "title": "Wayve CEO Alex Kendall brings the future of autonomous AI to TechCrunch Disrupt 2025",
-    "link": "https://techcrunch.com/2025/07/08/wayve-ceo-alex-kendall-brings-the-future-of-autonomous-ai-to-techcrunch-disrupt-2025/",
-    "source": "https://techcrunch.com/feed/"
+    "title": "Best Prime Day Apple Deals on iPads, AirPods, and MacBooks (2025)",
+    "link": "https://www.wired.com/story/prime-day-apple-deals-2025-1/",
+    "source": "https://www.wired.com/feed/rss"
   },
   {
     "title": "China Has Attempted What Might Be the First-Ever Orbital Refueling of a Satellite",
@@ -435,7 +450,7 @@
     "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "6 Amazon Prime Day Mattress  and Bedding Deals on Our Favorite Gear (2025)",
+    "title": "6 Best Prime Day Mattress Deals Plus Top Bedding Sales (2025)",
     "link": "https://www.wired.com/story/amazon-prime-day-mattress-deals-2025/",
     "source": "https://www.wired.com/feed/rss"
   },
@@ -447,11 +462,6 @@
   {
     "title": "‘People Are Going to Die’: A Malnutrition Crisis Looms in the Wake of USAID Cuts",
     "link": "https://www.wired.com/story/usaid-rutf-state-department-supplies-warehouses/",
-    "source": "https://www.wired.com/feed/rss"
-  },
-  {
-    "title": "Prime Day Picks From People Who Obsessively Test Gear & Track Prices",
-    "link": "https://www.wired.com/story/best-amazon-prime-deals-july-2025-1/",
     "source": "https://www.wired.com/feed/rss"
   },
   {
@@ -510,11 +520,6 @@
     "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "Best Prime Day Apple Deals on iPads, AirPods, and MacBooks (2025)",
-    "link": "https://www.wired.com/story/prime-day-apple-deals-2025/",
-    "source": "https://www.wired.com/feed/rss"
-  },
-  {
     "title": "5 Best Prime Day TV Deals for All Budgets (2025)",
     "link": "https://www.wired.com/story/prime-day-tv-deals-july-2025/",
     "source": "https://www.wired.com/feed/rss"
@@ -530,7 +535,7 @@
     "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "The 47 Best Shows on Max (aka HBO Max) Right Now (July 2025)",
+    "title": "The 47 Best Shows on HBO Max Right Now (July 2025)",
     "link": "https://www.wired.com/story/hbo-max-best-shows-to-stream-right-now/",
     "source": "https://www.wired.com/feed/rss"
   },
@@ -565,7 +570,7 @@
     "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "Best 5 Prime Day Kitchen Deals (2025): Breville, Ooni, Oxo",
+    "title": "Best 10 Prime Day Kitchen Deals (2025): Breville, Ooni, Oxo",
     "link": "https://www.wired.com/story/prime-day-kitchen-deals-july-2025/",
     "source": "https://www.wired.com/feed/rss"
   },
@@ -575,13 +580,13 @@
     "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "How to Spot Fake Beauty Products on Amazon: Tips and Advice",
-    "link": "https://www.wired.com/story/how-to-spot-counterfeit-beauty-products-on-amazon/",
+    "title": "Nothing Phone (3) Review: The Designer Phone",
+    "link": "https://www.wired.com/review/nothing-phone-3/",
     "source": "https://www.wired.com/feed/rss"
   },
   {
-    "title": "Nothing Phone (3) Review: The Designer Phone",
-    "link": "https://www.wired.com/review/nothing-phone-3/",
+    "title": "How to Spot Fake Beauty Products on Amazon: Tips and Advice",
+    "link": "https://www.wired.com/story/how-to-spot-counterfeit-beauty-products-on-amazon/",
     "source": "https://www.wired.com/feed/rss"
   },
   {
@@ -652,11 +657,6 @@
   {
     "title": "People Are Using AI Chatbots to Guide Their Psychedelic Trips",
     "link": "https://www.wired.com/story/people-are-using-ai-chatbots-to-guide-their-psychedelic-trips/",
-    "source": "https://www.wired.com/feed/rss"
-  },
-  {
-    "title": "On Mexico’s Caribbean Coast, There’s Lobster for the Tourists and Microplastics for Everyone Else",
-    "link": "https://www.wired.com/story/on-mexicos-caribbean-coast-theres-lobster-for-the-tourists-and-microplastics-for-everyone-else/",
     "source": "https://www.wired.com/feed/rss"
   }
 ]
