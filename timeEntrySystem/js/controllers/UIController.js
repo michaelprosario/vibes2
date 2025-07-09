@@ -67,18 +67,24 @@ class UIController {
         this.timeEntryManager.on('entryCreated', (entry) => {
             this.showSuccess('Time entry added successfully');
             this.renderTimeEntries();
+            this.updateTimesheetHeader();
+            this.updateTimesheetDropdown();
             this.clearTimeEntryForm();
         });
 
         this.timeEntryManager.on('entryUpdated', (entry) => {
             this.showSuccess('Time entry updated successfully');
             this.renderTimeEntries();
+            this.updateTimesheetHeader();
+            this.updateTimesheetDropdown();
             this.cancelEdit();
         });
 
         this.timeEntryManager.on('entryDeleted', (entry) => {
             this.showSuccess('Time entry deleted successfully');
             this.renderTimeEntries();
+            this.updateTimesheetHeader();
+            this.updateTimesheetDropdown();
         });
 
         this.timeEntryManager.on('error', (error) => {
@@ -269,6 +275,37 @@ class UIController {
                 Total: ${timesheet.getFormattedTotalHours()}
             </small>
         `;
+    }
+
+    updateTimesheetHeader() {
+        const currentTimesheet = this.timeEntryManager.getCurrentTimesheet();
+        if (currentTimesheet) {
+            const cardHeader = document.querySelector('#timeEntriesContainer').closest('.card').querySelector('.card-header');
+            cardHeader.innerHTML = `
+                <h3>Time Entries - ${currentTimesheet.name}</h3>
+                <small class="text-muted">
+                    ${currentTimesheet.getEntryCount()} entries | 
+                    Total: ${currentTimesheet.getFormattedTotalHours()}
+                </small>
+            `;
+        }
+    }
+
+    async updateTimesheetDropdown() {
+        const currentTimesheet = this.timeEntryManager.getCurrentTimesheet();
+        const currentTimesheetId = currentTimesheet ? currentTimesheet.id : null;
+        
+        try {
+            const timesheets = await this.timesheetManager.getAllTimesheets();
+            this.renderTimesheetOptions(timesheets);
+            
+            if (currentTimesheetId) {
+                const timesheetSelect = document.getElementById('timesheetSelect');
+                timesheetSelect.value = currentTimesheetId;
+            }
+        } catch (error) {
+            console.error('Failed to update timesheet dropdown:', error);
+        }
     }
 
     clearTimesheetSelection() {
