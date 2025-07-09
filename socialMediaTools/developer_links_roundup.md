@@ -1,92 +1,91 @@
-# Developer Links Roundup: Cool Finds for Web, Cloud, AI & XR Developers
+# Developer Links Roundup: Cool Resources for Modern Developers
 
-*A curated collection of interesting links from the development community*
-
-## 🤖 AI & Development
-
-**The AI coding revolution is here:**
-- [Coding agents have crossed a chasm](https://changelog.com/news/150) - AI agents are becoming more capable at coding tasks
-- [Agent, take the wheel](https://changelog.com/podcast/648) - Deep dive into AI agents taking control
-- [Adventures in babysitting coding agents](https://changelog.com/friends/96) - Real experiences managing AI coding assistants
-- [Building Zed's agentic editing](https://changelog.com/podcast/640) - How Zed editor is integrating AI agents
-- [Google's new protocol has AI agents talkin'](https://changelog.com/news/140) - New communication protocols for AI agents
-- [The AI 2027 scenario](https://changelog.com/news/139) - Predictions about AI development landscape
-- [Of agents & agency](https://changelog.com/friends/86) - Philosophical take on AI agents and autonomy
-
-**AI development insights:**
-- [Never. Let. AI. Write. Your. Tests.](https://changelog.com/news/148) - Critical perspective on AI-generated testing
-- [The 'developer replacement' hype cycle](https://changelog.com/news/147) - Realistic view on AI replacing developers
-- [A critical look at MCP](https://changelog.com/news/144) - Analysis of Model Context Protocol
-- [When life gives you LLMs...](https://changelog.com/friends/91) - Making the most of large language models
+*A curated collection of interesting articles, tools, and insights for web developers, cloud engineers, AI enthusiasts, and XR creators.*
 
 ## 🌐 Web Development
 
-**Modern web development tools and practices:**
-- [The Web Development Engine](https://changelog.com/podcast/643) - Core concepts powering modern web development
-- [The CEO of htmx likes codin' dirty](https://changelog.com/podcast/646) - Insights from the htmx creator
-- [Let's build something phoenix.new](https://changelog.com/friends/99) - Phoenix framework development
-- [When vibe coding goes viral](https://changelog.com/podcast/647) - The culture of expressive coding
-- [Friends on the frontend](https://changelog.com/friends/84) - Frontend development community discussions
+### React & Frontend Frameworks
+- **[100+ Typed and Tested React Hooks You'll Actually Use in Production](https://dev.to/taarnn/100-typed-and-tested-react-hooks-youll-actually-use-in-production-afk)** - Comprehensive collection of production-ready React hooks with TypeScript
+- **[The CEO of htmx likes codin' dirty](https://changelog.com/podcast/646)** - Insights from the htmx creator on modern web development
+- **[Let's build something phoenix.new](https://changelog.com/friends/99)** - Phoenix framework development approaches
 
-**Web development philosophy:**
-- [Full-breadth developers for the win](https://changelog.com/news/151) - Why generalist developers are valuable
-- [I just want to code](https://changelog.com/news/142) - Getting back to the essence of coding
-- [Our interfaces have lost their senses](https://changelog.com/news/136) - Rethinking user interface design
+### Development Tools & Practices
+- **[The Web Development Engine](https://changelog.com/podcast/643)** - Core concepts powering modern web development
+- **[Cross Platform Tool Building Universal Web Applications Advanced](https://dev.to/github-recommend/cross-platform-tool-building-universal-web-applications-advanced-3bhg)** - Advanced cross-platform web app techniques
+- **[Technical Blog Writing Guide](https://dev.to/github-recommend/technical-blog-writing-guide-54fc)** - Best practices for technical writing
 
-## ☁️ Cloud & Infrastructure
+### Testing & Quality
+- **[Never. Let. AI. Write. Your. Tests.](https://changelog.com/news/148)** - Critical perspective on AI-generated testing
+- **[Full-breadth developers for the win](https://changelog.com/news/151)** - Why generalist developers are valuable
 
-**Cloud native and infrastructure:**
-- [NATS and the CNCF kerfuffle](https://changelog.com/podcast/641) - Cloud Native Computing Foundation discussions
-- [The era of durable execution](https://changelog.com/podcast/636) - New patterns in distributed systems
-- [Making DNSimple](https://changelog.com/podcast/637) - Building DNS infrastructure services
-- [Windows Subsystem for Linux is open source](https://changelog.com/news/145) - Microsoft's Linux integration goes open source
+## ☁️ Cloud Development
 
-**Developer tools and productivity:**
-- [Our Slack is dead. Long live Zulip!](https://changelog.com/posts/our-slack-is-dead-long-live-zulip) - Team communication platform migration
-- [wsl.exe -- cat hello.cs](https://changelog.com/friends/95) - Windows Subsystem for Linux tips
-- [Stop uploading your data to Google](https://changelog.com/news/149) - Data privacy and self-hosting alternatives
+### Infrastructure & DevOps
+- **[NATS and the CNCF kerfuffle](https://changelog.com/podcast/641)** - Cloud Native Computing Foundation insights
+- **[The era of durable execution](https://changelog.com/podcast/636)** - New patterns in distributed systems
+- **[Networking Fundamentals: QoS](https://dev.to/devopsfundamentals/networking-fundamentals-qos-4akm)** - Quality of Service in cloud networking
 
-## 🚀 Developer Culture & Career
+### Platform Services
+- **[Making DNSimple](https://changelog.com/podcast/637)** - Building DNS infrastructure services
+- **[Windows Subsystem for Linux is open source](https://changelog.com/news/145)** - Microsoft's Linux integration developments
+- **[Securing ecommerce: "It's complicated"](https://changelog.com/podcast/633)** - Cloud security challenges
 
-**Industry trends and career insights:**
-- [Entry-level tech jobs are getting wiped out](https://changelog.com/news/146) - Job market reality check
-- [Revenge of the junior developer](https://changelog.com/news/137) - Junior developers finding their place
-- [We're all Builders now](https://changelog.com/podcast/644) - Everyone is becoming a creator
-- [Make sales not features](https://changelog.com/podcast/638) - Business-focused development approach
-- [Chasing that next BIG thing](https://changelog.com/podcast/639) - Innovation and trend-chasing in tech
+## 🤖 AI Development
 
-**Programming languages and paradigms:**
-- [The Roc programming language](https://changelog.com/podcast/645) - Exploring new programming languages
-- [Refactored in prison](https://changelog.com/podcast/642) - Unique development stories
-- [The 1000x faster financial database](https://changelog.com/podcast/635) - High-performance database engineering
+### AI Agents & Automation
+- **[Coding agents have crossed a chasm](https://changelog.com/news/150)** - AI agents becoming more capable at coding
+- **[Agent, take the wheel](https://changelog.com/podcast/648)** - Deep dive into AI agents taking control
+- **[Building Zed's agentic editing](https://changelog.com/podcast/640)** - AI-powered code editing integration
+- **[Adventures in babysitting coding agents](https://changelog.com/friends/96)** - Real experiences with AI coding assistants
 
-## 🎯 Security & Best Practices
+### AI Tools & Platforms
+- **[LangChain is about to become a unicorn, sources say](https://techcrunch.com/2025/07/08/langchain-is-about-to-become-a-unicorn-sources-say/)** - Business developments in AI tooling
+- **[A critical look at MCP](https://changelog.com/news/144)** - Analysis of Model Context Protocol
+- **[Google's new protocol has AI agents talkin'](https://changelog.com/news/140)** - New AI agent communication protocols
 
-**Security and development practices:**
-- [Securing ecommerce: "It's complicated"](https://changelog.com/podcast/633) - E-commerce security challenges
-- [Leading leaders who lead engineers (remastered)](https://changelog.com/podcast/634) - Engineering leadership insights
-- [Firefox could be doomed](https://changelog.com/news/143) - Browser ecosystem concerns
+### AI Content & ML
+- **[From Prompt to Pixel: A Look at Generative AI in Visual Content](https://dev.to/azhan_j_71b0e414743b0dc0e/from-prompt-to-pixel-a-look-at-generative-ai-in-visual-content-56hn)** - Generative AI for visual content
+- **[MLOps](https://dev.to/shubham_gupta_0adedafd271/mlops-5585)** - Machine Learning Operations practices
+- **[The 'developer replacement' hype cycle](https://changelog.com/news/147)** - Realistic view on AI replacing developers
 
-## 🎨 Creative & Lifestyle
+## 🥽 XR Development
 
-**Developer lifestyle and creativity:**
-- [Fresh beats for endless flow state](https://changelog.com/news/141) - Music for coding productivity
-- [Vibing into the vibe](https://changelog.com/friends/89) - Developer culture and community
-- [The idealization of farming by tech](https://changelog.com/news/138) - Tech industry cultural reflections
-- [Selling mountain bikes all over the planet](https://changelog.com/friends/100) - Entrepreneurship stories
-- [Here's my Siri theory](https://changelog.com/friends/85) - Tech predictions and theories
+### AR/VR User Experience
+- **[Beyond The Screen: Creating Immersive User Experiences with AR/VR in UI/UX](https://dev.to/jennysmith7/beyond-the-screen-creating-immersive-user-experiences-with-arvr-in-uiux-2ahg)** - Designing immersive AR/VR experiences
+- **[Our interfaces have lost their senses](https://changelog.com/news/136)** - Rethinking interface design for multi-sensory experiences
 
-## 💡 Development Philosophy
+### Game Development & Unity
+- **[Practical approach to interface, delegate, events in Unity](https://dev.to/kwesikwaa/practical-approach-to-interface-delegate-events-in-unity-2d57)** - Unity development patterns for XR
 
-**Thinking about development:**
-- [Dull, dirty or dangerous](https://changelog.com/friends/94) - What work should be automated
-- [Hello, Matworld!](https://changelog.com/friends/90) - Community introductions and networking
-- [Just on the rocks](https://changelog.com/friends/98) - Casual developer conversations
-- [Saltiness about frostiness](https://changelog.com/friends/97) - Developer community dynamics
-- [Turn him into a walrus](https://changelog.com/friends/87) - Quirky developer humor
-- [Proud pod parents](https://changelog.com/friends/88) - Community building and mentorship
-- [Kaizen! Tip of the Pipely](https://changelog.com/friends/92) - Continuous improvement practices
-- [#define: I'm going pants](https://changelog.com/friends/93) - Developer expressions and culture
+### 3D Design & CAD
+- **[How to Design a Basket Using 3D CAD Software](https://dev.to/julia970/how-to-design-a-basket-using-3d-cad-software-gcp)** - 3D modeling for XR content
+- **[How to Design a Toilet Paper Roller Using 3D CAD Software](https://dev.to/julia970/how-to-design-a-toilet-paper-roller-using-3d-cad-software-c4l)** - Practical 3D design workflows
+
+## 🚀 Emerging Technologies & Trends
+
+### Programming Languages
+- **[The Roc programming language](https://changelog.com/podcast/645)** - Exploring new programming language innovations
+- **[Dictionary Comprehensions in Python: Powerful, Elegant, and Fast](https://dev.to/techienadeem/dictionary-comprehensions-in-python-powerful-elegant-and-fast-3434)** - Python optimization techniques
+
+### Hardware & Robotics
+- **[Hugging Face opens up orders for its Reachy Mini desktop robots](https://techcrunch.com/2025/07/09/hugging-face-opens-up-orders-for-its-reachy-mini-desktop-robots/)** - AI robotics becoming accessible
+- **[Teenagers can now hail a Waymo robotaxi in Phoenix](https://techcrunch.com/2025/07/08/teenagers-can-now-hail-a-waymo-robotaxi-in-phoenix/)** - Autonomous vehicle progress
+
+### Industry News
+- **[Firefox could be doomed](https://changelog.com/news/143)** - Browser ecosystem developments
+- **[Our Slack is dead. Long live Zulip!](https://changelog.com/posts/our-slack-is-dead-long-live-zulip)** - Team communication evolution
+
+## 💡 Developer Culture & Philosophy
+
+### Career & Growth
+- **[Entry-level tech jobs are getting wiped out](https://changelog.com/news/146)** - Job market reality check
+- **[Revenge of the junior developer](https://changelog.com/news/137)** - Junior developers finding their place
+- **[I just want to code](https://changelog.com/news/142)** - Getting back to coding essentials
+
+### Development Philosophy
+- **[When vibe coding goes viral](https://changelog.com/podcast/647)** - The culture of expressive coding
+- **[We're all Builders now](https://changelog.com/podcast/644)** - Everyone becoming a creator
+- **[Make sales not features](https://changelog.com/podcast/638)** - Business-focused development
 
 ---
 
