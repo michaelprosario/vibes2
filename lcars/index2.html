@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCARS Interface - SVG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lcars-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .button-text {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            fill: #000;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            pointer-events: none;
+        }
+
+        .header-text {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            fill: #ffcc00;
+            text-anchor: start;
+            dominant-baseline: middle;
+            letter-spacing: 2px;
+        }
+
+        .demo-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            filter: brightness(1.2);
+            stroke: #fff;
+            stroke-width: 2;
+        }
+
+        .demo-button:active {
+            transform: scale(0.95);
+        }
+
+        .indicator {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator:hover {
+            filter: brightness(1.3);
+            stroke: #fff;
+            stroke-width: 1;
+        }
+
+        .indicator:active {
+            opacity: 0.7;
+        }
+
+        .lcars-frame {
+            stroke: #cc99cc;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .lcars-bar {
+            fill: #cc99cc;
+        }
+
+        .lcars-cap {
+            fill: #888;
+        }
+
+        .lcars-header {
+            fill: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="lcars-container">
+        <svg viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#cc99cc;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#dd99dd;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="grayGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#888;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#999;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            
+            <!-- Left rounded cap -->
+            <path d="M 0 150 Q 0 150 100 150 L 100 650 Q 0 650 0 650 Z" class="lcars-cap"/>
+            
+            <!-- Right rounded cap -->
+            <path d="M 1400 150 Q 1400 150 1300 150 L 1300 650 Q 1400 650 1400 650 Z" class="lcars-cap"/>
+            
+            <!-- Top header bar -->
+            <rect x="195" y="75" width="380" height="40" rx="20" class="lcars-header"/>
+            <text x="215" y="95" class="header-text">WHEREWELEARN</text>
+            
+            <!-- Bottom header bar -->
+            <rect x="195" y="685" width="380" height="40" rx="20" class="lcars-header"/>
+            <text x="215" y="705" class="header-text">MASTER SYSTEMS DISPLAY</text>
+            
+            <!-- Main frame with rounded corners -->
+            <rect x="100" y="150" width="1200" height="500" rx="20" class="lcars-frame"/>
+            
+            <!-- Top and bottom purple bars -->
+            <rect x="100" y="170" width="1200" height="15" rx="7" class="lcars-bar"/>
+            <rect x="100" y="615" width="1200" height="15" rx="7" class="lcars-bar"/>
+            
+            <!-- Demo Buttons Row 1 (2 buttons) -->
+            <rect x="130" y="210" width="255" height="80" rx="40" fill="#cc99cc" class="demo-button" onclick="handleButtonClick('purple1')"/>
+            <text x="257" y="250" class="button-text">Demo Button</text>
+            
+            <rect x="405" y="210" width="255" height="80" rx="40" fill="#888" class="demo-button" onclick="handleButtonClick('gray1')"/>
+            <text x="532" y="250" class="button-text">Demo Button</text>
+            
+            <!-- Demo Buttons Row 2 (3 buttons) -->
+            <rect x="130" y="310" width="255" height="80" rx="40" fill="#ffcc99" class="demo-button" onclick="handleButtonClick('yellow1')"/>
+            <text x="257" y="350" class="button-text">Demo Button</text>
+            
+            <rect x="405" y="310" width="255" height="80" rx="40" fill="#cc6666" class="demo-button" onclick="handleButtonClick('red1')"/>
+            <text x="532" y="350" class="button-text">Demo Button</text>
+            
+            <rect x="680" y="310" width="255" height="80" rx="40" fill="#ff9900" class="demo-button" onclick="handleButtonClick('orange1')"/>
+            <text x="807" y="350" class="button-text">Demo Button</text>
+            
+            <!-- Demo Buttons Row 3 (2 buttons) -->
+            <rect x="130" y="410" width="255" height="80" rx="40" fill="#ffff99" class="demo-button" onclick="handleButtonClick('lightyellow1')"/>
+            <text x="257" y="450" class="button-text">Demo Button</text>
+            
+            <rect x="405" y="410" width="255" height="80" rx="40" fill="#cc99cc" class="demo-button" onclick="handleButtonClick('lightpurple1')"/>
+            <text x="532" y="450" class="button-text">Demo Button</text>
+            
+            <!-- Right side vertical panels -->
+            <rect x="1070" y="170" width="100" height="445" rx="20" fill="url(#purpleGradient)"/>
+            <rect x="1190" y="170" width="100" height="445" rx="20" fill="url(#purpleGradient)"/>
+            
+            <!-- Right side indicators -->
+            <rect x="1200" y="430" width="80" height="25" rx="12" fill="#ffcc00" class="indicator" onclick="handleIndicatorClick('yellow1')"/>
+            <rect x="1200" y="465" width="80" height="25" rx="12" fill="#ffcc00" class="indicator" onclick="handleIndicatorClick('yellow2')"/>
+            <rect x="1200" y="500" width="80" height="25" rx="12" fill="#ff9900" class="indicator" onclick="handleIndicatorClick('orange1')"/>
+            <rect x="1200" y="535" width="80" height="25" rx="12" fill="#ff9900" class="indicator" onclick="handleIndicatorClick('orange2')"/>
+            <rect x="1200" y="570" width="80" height="25" rx="12" fill="#888" class="indicator" onclick="handleIndicatorClick('gray1')"/>
+        </svg>
+    </div>
+
+    <script>
+        function handleButtonClick(buttonId) {
+            console.log(`Button clicked: ${buttonId}`);
+            
+            const button = event.target;
+            const originalFill = button.getAttribute('fill');
+            
+            // Flash effect
+            button.setAttribute('fill', '#ffffff');
+            
+            setTimeout(() => {
+                button.setAttribute('fill', originalFill);
+            }, 200);
+            
+            playBeep();
+        }
+
+        function handleIndicatorClick(indicatorId) {
+            console.log(`Indicator clicked: ${indicatorId}`);
+            
+            const indicator = event.target;
+            const originalOpacity = indicator.getAttribute('opacity') || '1';
+            
+            // Dim effect
+            indicator.setAttribute('opacity', '0.3');
+            
+            setTimeout(() => {
+                indicator.setAttribute('opacity', originalOpacity);
+            }, 300);
+            
+            playBeep();
+        }
+
+        function playBeep() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (error) {
+                console.log('Audio not supported');
+            }
+        }
+
+        // Add hover effects through JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.demo-button');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.2) drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.filter = '';
+                });
+            });
+            
+            indicators.forEach(indicator => {
+                indicator.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.3) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6))';
+                });
+                
+                indicator.addEventListener('mouseleave', function() {
+                    this.style.filter = '';
+                });
+            });
+        });
+
+        // Add pulsing animation to indicators
+        function addPulsingEffect() {
+            const indicators = document.querySelectorAll('.indicator');
+            
+            indicators.forEach((indicator, index) => {
+                setInterval(() => {
+                    const currentOpacity = indicator.getAttribute('opacity') || '1';
+                    if (currentOpacity === '1') {
+                        indicator.setAttribute('opacity', '0.6');
+                        setTimeout(() => {
+                            indicator.setAttribute('opacity', '1');
+                        }, 500);
+                    }
+                }, 2000 + (index * 300));
+            });
+        }
+
+        // Start pulsing effect after page load
+        window.addEventListener('load', () => {
+            setTimeout(addPulsingEffect, 1000);
+        });
+    </script>
+</body>
+</html>

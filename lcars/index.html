@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCARS Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .lcars-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        .header-bar {
+            position: absolute;
+            top: 60px;
+            left: 195px;
+            width: 380px;
+            height: 40px;
+            background-color: #888;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            color: #ffcc00;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .footer-bar {
+            position: absolute;
+            bottom: 60px;
+            left: 195px;
+            width: 380px;
+            height: 40px;
+            background-color: #888;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            color: #ffcc00;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .main-frame {
+            position: absolute;
+            top: 120px;
+            left: 75px;
+            width: 1130px;
+            height: 500px;
+            background-color: #000;
+            border: 3px solid #cc99cc;
+            border-radius: 20px;
+        }
+
+        .button-grid {
+            position: absolute;
+            top: 40px;
+            left: 20px;
+            width: 650px;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .button-row-1 {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+        }
+
+        .button-row-2 {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+        }
+
+        .button-row-3 {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+        }
+
+        .demo-button {
+            width: 200px;
+            height: 80px;
+            border: none;
+            border-radius: 40px;
+            color: #000;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        .demo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .demo-button:active {
+            transform: scale(0.95);
+        }
+
+        .button-purple {
+            background-color: #cc99cc;
+        }
+
+        .button-gray {
+            background-color: #888;
+        }
+
+        .button-yellow {
+            background-color: #ffcc99;
+        }
+
+        .button-red {
+            background-color: #cc6666;
+        }
+
+        .button-orange {
+            background-color: #ff9900;
+        }
+
+        .button-light-yellow {
+            background-color: #ffff99;
+        }
+
+        .button-light-purple {
+            background-color: #cc99cc;
+        }
+
+        .right-side {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            width: 240px;
+            height: 460px;
+        }
+
+        .right-column-1 {
+            position: absolute;
+            top: 0;
+            right: 120px;
+            width: 100px;
+            height: 460px;
+            background-color: #cc99cc;
+            border-radius: 20px;
+        }
+
+        .right-column-2 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 460px;
+            background-color: #cc99cc;
+            border-radius: 20px;
+        }
+
+        .right-indicators {
+            position: absolute;
+            top: 240px;
+            right: 0;
+            width: 100px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px;
+        }
+
+        .indicator {
+            width: 80px;
+            height: 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .indicator-yellow {
+            background-color: #ffcc00;
+        }
+
+        .indicator-orange {
+            background-color: #ff9900;
+        }
+
+        .indicator-gray {
+            background-color: #888;
+        }
+
+        .left-cap {
+            position: absolute;
+            top: 120px;
+            left: 0;
+            width: 195px;
+            height: 500px;
+            background-color: #888;
+            border-radius: 100px 0 0 100px;
+        }
+
+        .right-cap {
+            position: absolute;
+            top: 120px;
+            right: 0;
+            width: 195px;
+            height: 500px;
+            background-color: #888;
+            border-radius: 0 100px 100px 0;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 155px;
+            left: 75px;
+            width: 1130px;
+            height: 15px;
+            background-color: #cc99cc;
+            border-radius: 10px;
+        }
+
+        .bottom-bar {
+            position: absolute;
+            bottom: 155px;
+            left: 75px;
+            width: 1130px;
+            height: 15px;
+            background-color: #cc99cc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="lcars-container">
+        <div class="left-cap"></div>
+        <div class="right-cap"></div>
+        
+        <div class="header-bar">WHEREWELEARN</div>
+        <div class="footer-bar">MASTER SYSTEMS DISPLAY</div>
+        
+        <div class="top-bar"></div>
+        <div class="bottom-bar"></div>
+        
+        <div class="main-frame">
+            <div class="button-grid">
+                <div class="button-row-1">
+                    <button class="demo-button button-purple" onclick="handleButtonClick('purple1')">Demo Button</button>
+                    <button class="demo-button button-gray" onclick="handleButtonClick('gray1')">Demo Button</button>
+                </div>
+                <div class="button-row-2">
+                    <button class="demo-button button-yellow" onclick="handleButtonClick('yellow1')">Demo Button</button>
+                    <button class="demo-button button-red" onclick="handleButtonClick('red1')">Demo Button</button>
+                    <button class="demo-button button-orange" onclick="handleButtonClick('orange1')">Demo Button</button>
+                </div>
+                <div class="button-row-3">
+                    <button class="demo-button button-light-yellow" onclick="handleButtonClick('lightyellow1')">Demo Button</button>
+                    <button class="demo-button button-light-purple" onclick="handleButtonClick('lightpurple1')">Demo Button</button>
+                </div>
+            </div>
+            
+            <div class="right-side">
+                <div class="right-column-1"></div>
+                <div class="right-column-2">
+                    <div class="right-indicators">
+                        <div class="indicator indicator-yellow" onclick="handleIndicatorClick('yellow1')"></div>
+                        <div class="indicator indicator-orange" onclick="handleIndicatorClick('orange1')"></div>
+                        <div class="indicator indicator-gray" onclick="handleIndicatorClick('gray1')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleButtonClick(buttonId) {
+            console.log(`Button clicked: ${buttonId}`);
+            
+            const button = event.target;
+            const originalColor = button.style.backgroundColor;
+            
+            button.style.backgroundColor = '#fff';
+            button.style.color = '#000';
+            
+            setTimeout(() => {
+                button.style.backgroundColor = '';
+                button.style.color = '';
+            }, 200);
+            
+            playBeep();
+        }
+
+        function handleIndicatorClick(indicatorId) {
+            console.log(`Indicator clicked: ${indicatorId}`);
+            
+            const indicator = event.target;
+            const originalOpacity = indicator.style.opacity || '1';
+            
+            indicator.style.opacity = '0.3';
+            
+            setTimeout(() => {
+                indicator.style.opacity = originalOpacity;
+            }, 300);
+            
+            playBeep();
+        }
+
+        function playBeep() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.demo-button');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            indicators.forEach(indicator => {
+                indicator.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.6)';
+                });
+                
+                indicator.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
