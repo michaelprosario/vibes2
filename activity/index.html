@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Feed</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Activity</h1>
+            <button class="add-btn">+</button>
+        </header>
+        
+        <nav class="tabs">
+            <button class="tab active">Following</button>
+            <button class="tab">You</button>
+            <button class="tab">Groups</button>
+        </nav>
+        
+        <div class="activity-feed">
+            <div class="activity-item">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/40x40/f4a261/fff?text=S" alt="Sophia">
+                </div>
+                <div class="content">
+                    <div class="activity-text">
+                        <strong>Sophia</strong> ran 5 miles
+                    </div>
+                    <div class="activity-meta">1h 20m • 200 calories</div>
+                    <div class="activity-actions">
+                        <button class="action-btn">
+                            <span class="icon">♥</span>
+                            <span class="count">12</span>
+                        </button>
+                        <button class="action-btn">
+                            <span class="icon">💬</span>
+                            <span class="count">5</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/40x40/e76f51/fff?text=L" alt="Liam">
+                </div>
+                <div class="content">
+                    <div class="activity-text">
+                        <strong>Liam</strong> <span class="time">2d</span>
+                    </div>
+                    <div class="comment">Great job, Sophia! Keep up the amazing work.</div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/40x40/2a9d8f/fff?text=A" alt="Ava">
+                </div>
+                <div class="content">
+                    <div class="activity-text">
+                        <strong>Ava</strong> <span class="time">2d</span>
+                    </div>
+                    <div class="comment">You're crushing it! So inspiring.</div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/40x40/264653/fff?text=E" alt="Ethan">
+                </div>
+                <div class="content">
+                    <div class="activity-text">
+                        <strong>Ethan</strong> <span class="time">2d</span>
+                    </div>
+                    <div class="comment">Way to go! Keep pushing your limits.</div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/40x40/f4a261/fff?text=N" alt="Noah">
+                </div>
+                <div class="content">
+                    <div class="activity-text">
+                        <strong>Noah</strong> cycled 15 miles
+                    </div>
+                    <div class="activity-meta">45m • 150 calories</div>
+                    <div class="activity-actions">
+                        <button class="action-btn">
+                            <span class="icon">♥</span>
+                            <span class="count">8</span>
+                        </button>
+                        <button class="action-btn">
+                            <span class="icon">💬</span>
+                            <span class="count">2</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
