@@ -1,0 +1,662 @@
+[
+  {
+    "title": "Full-breadth developers for the win",
+    "link": "https://changelog.com/news/151",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Agent, take the wheel",
+    "link": "https://changelog.com/podcast/648",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Coding agents have crossed a chasm",
+    "link": "https://changelog.com/news/150",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Let's build something phoenix.new",
+    "link": "https://changelog.com/friends/99",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "When vibe coding goes viral",
+    "link": "https://changelog.com/podcast/647",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Selling mountain bikes all over the planet",
+    "link": "https://changelog.com/friends/100",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Just on the rocks",
+    "link": "https://changelog.com/friends/98",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The CEO of htmx likes codin' dirty",
+    "link": "https://changelog.com/podcast/646",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Stop uploading your data to Google",
+    "link": "https://changelog.com/news/149",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Saltiness about frostiness",
+    "link": "https://changelog.com/friends/97",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The Roc programming language",
+    "link": "https://changelog.com/podcast/645",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Never. Let. AI. Write. Your. Tests.",
+    "link": "https://changelog.com/news/148",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Adventures in babysitting coding agents",
+    "link": "https://changelog.com/friends/96",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "We're all Builders now",
+    "link": "https://changelog.com/podcast/644",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The 'developer replacement' hype cycle",
+    "link": "https://changelog.com/news/147",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "wsl.exe -- cat hello.cs",
+    "link": "https://changelog.com/friends/95",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The Web Development Engine",
+    "link": "https://changelog.com/podcast/643",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Entry-level tech jobs are getting wiped out",
+    "link": "https://changelog.com/news/146",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Dull, dirty or dangerous",
+    "link": "https://changelog.com/friends/94",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Refactored in prison",
+    "link": "https://changelog.com/podcast/642",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Windows Subsystem for Linux is open source",
+    "link": "https://changelog.com/news/145",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "#define: I'm going pants",
+    "link": "https://changelog.com/friends/93",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "NATS and the CNCF kerfuffle",
+    "link": "https://changelog.com/podcast/641",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "A critical look at MCP",
+    "link": "https://changelog.com/news/144",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Kaizen! Tip of the Pipely",
+    "link": "https://changelog.com/friends/92",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Our Slack is dead. Long live Zulip!",
+    "link": "https://changelog.com/posts/our-slack-is-dead-long-live-zulip",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Building Zed's agentic editing",
+    "link": "https://changelog.com/podcast/640",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Firefox could be doomed",
+    "link": "https://changelog.com/news/143",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "When life gives you LLMs...",
+    "link": "https://changelog.com/friends/91",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Chasing that next BIG thing",
+    "link": "https://changelog.com/podcast/639",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "I just want to code",
+    "link": "https://changelog.com/news/142",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Hello, Matworld!",
+    "link": "https://changelog.com/friends/90",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Make sales not features",
+    "link": "https://changelog.com/podcast/638",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Fresh beats for endless flow state",
+    "link": "https://changelog.com/news/141",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Vibing into the vibe",
+    "link": "https://changelog.com/friends/89",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Making DNSimple",
+    "link": "https://changelog.com/podcast/637",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Google's new protocol has AI agents talkin'",
+    "link": "https://changelog.com/news/140",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Proud pod parents",
+    "link": "https://changelog.com/friends/88",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The era of durable execution",
+    "link": "https://changelog.com/podcast/636",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The AI 2027 scenario",
+    "link": "https://changelog.com/news/139",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Turn him into a walrus",
+    "link": "https://changelog.com/friends/87",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The 1000x faster financial database",
+    "link": "https://changelog.com/podcast/635",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "The idealization of farming by tech",
+    "link": "https://changelog.com/news/138",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Of agents & agency",
+    "link": "https://changelog.com/friends/86",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Leading leaders who lead engineers (remastered)",
+    "link": "https://changelog.com/podcast/634",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Revenge of the junior developer",
+    "link": "https://changelog.com/news/137",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Here's my Siri theory",
+    "link": "https://changelog.com/friends/85",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Securing ecommerce: \"It's complicated\"",
+    "link": "https://changelog.com/podcast/633",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Our interfaces have lost their senses",
+    "link": "https://changelog.com/news/136",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "Friends on the frontend",
+    "link": "https://changelog.com/friends/84",
+    "source": "https://changelog.com/feed"
+  },
+  {
+    "title": "GitHub Integration in VS Code Using Docker MCP: A Step-by-Step Tutorial",
+    "link": "https://dev.to/om_shree_0709/github-integration-in-vs-code-using-docker-mcp-a-step-by-step-tutorial-3ddg",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Getting started with Claude 4 API: A developer’s walkthrough",
+    "link": "https://dev.to/logrocket/getting-started-with-claude-4-api-a-developers-walkthrough-1n1b",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "🚀 What’s New in Ruby 3.4 – The Language We Love Keeps Getting Sharper",
+    "link": "https://dev.to/obaidaashfaq20/whats-new-in-ruby-34-the-language-we-love-keeps-getting-sharper-1e10",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Building a Modern, Type-Safe Authentication System for Django REST Framework",
+    "link": "https://dev.to/huynguyengl99/building-a-modern-type-safe-authentication-system-for-django-rest-framework-c42",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Fun Operators of JavaScript – Compare & Conquer!",
+    "link": "https://dev.to/megha_m/fun-operators-of-javascript-compare-conquer-11hp",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "\"Operator overload? Not Anymore - JS Operators Made Easy!\"",
+    "link": "https://dev.to/praveena_2109/operator-overload-not-anymore-js-operators-made-easy-3514",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Web Developer Travis McCracken on DevOps Tips from a Web Developer",
+    "link": "https://dev.to/travis-mccracken-dev/web-developer-travis-mccracken-on-devops-tips-from-a-web-developer-n98",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Compiled Vs Interpreted Language",
+    "link": "https://dev.to/sevaki_rajasekar_700822f9/compiled-vs-interpreted-language-5am3",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Bidirectional Communication Protocols",
+    "link": "https://dev.to/github-recommend/bidirectional-communication-protocols-n8c",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Luz do Mundo",
+    "link": "https://dev.to/franciscobatistajunior/luz-do-mundo-2hhk",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Hashtag CMS",
+    "link": "https://dev.to/marghoobsuleman/hashtag-cms-3c76",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "Ubuntu Fundamentals: groups",
+    "link": "https://dev.to/devopsfundamentals/ubuntu-fundamentals-groups-pk6",
+    "source": "https://dev.to/feed"
+  },
+  {
+    "title": "PR is your scaling power: Learn from Insight Partners’ Nikki Parker at TechCrunch All Stage",
+    "link": "https://techcrunch.com/2025/07/09/pr-is-your-scaling-power-learn-from-insight-partners-nikki-parker-at-techcrunch-all-stage/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Google brings Gemini to Wear OS watches, adds AI Mode to Circle to Search",
+    "link": "https://techcrunch.com/2025/07/09/google-brings-gemini-to-wear-os-watches-adds-ai-mode-to-circle-to-search/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Samsung launches Z Fold7 and Z Flip7, adds a cheaper Z Flip7 FE to its foldable lineup",
+    "link": "https://techcrunch.com/2025/07/09/samsung-launches-z-fold7-and-z-flip7-adds-a-cheaper-z-flip7-fe-to-its-foldable-lineup/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "6 days until TechCrunch All Stage kicks off in Boston — and up to $475 in ticket savings disappear",
+    "link": "https://techcrunch.com/2025/07/09/6-days-until-techcrunch-all-stage-kicks-off-in-boston-and-up-to-475-in-ticket-savings-disappear/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Samsung brings back the Classic version for the Watch8 series",
+    "link": "https://techcrunch.com/2025/07/09/samsung-brings-back-the-classic-version-for-the-watch8-series/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Moroccan founder raises $4.2M for her YC-backed startup building the next layer of AI search",
+    "link": "https://techcrunch.com/2025/07/09/moroccan-founder-raises-4-2m-for-her-yc-backed-startup-building-the-next-layer-of-ai-search/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "How to protect your cell phone number from SIM swap attacks",
+    "link": "https://techcrunch.com/2025/07/09/how-to-protect-your-cell-phone-number-from-sim-swap-attacks/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Hugging Face opens up orders for its Reachy Mini desktop robots",
+    "link": "https://techcrunch.com/2025/07/09/hugging-face-opens-up-orders-for-its-reachy-mini-desktop-robots/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "European VC breaks taboo by investing in pure defense tech from Ukraine’s war zones",
+    "link": "https://techcrunch.com/2025/07/08/european-vc-breaks-taboo-by-investing-in-pure-defense-tech-from-ukraines-war-zones/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Rivian spinoff Also raises another $200M to build e-bikes and more",
+    "link": "https://techcrunch.com/2025/07/08/rivian-spinoff-also-raises-another-200m-to-build-e-bikes-and-more/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "LangChain is about to become a unicorn, sources say",
+    "link": "https://techcrunch.com/2025/07/08/langchain-is-about-to-become-a-unicorn-sources-say/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Grok is being antisemitic again and also the sky is blue",
+    "link": "https://techcrunch.com/2025/07/08/grok-is-being-antisemitic-again-and-also-the-sky-is-blue/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Apple COO Jeff Williams to step down later this month",
+    "link": "https://techcrunch.com/2025/07/08/apple-coo-jeff-williams-to-step-down-later-this-month/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "US government confirms arrest of Chinese national accused of stealing COVID research and mass-hacking email servers",
+    "link": "https://techcrunch.com/2025/07/08/us-government-confirms-arrest-of-chinese-national-accused-of-stealing-covid-research-and-mass-hacking-email-servers/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "GenAI as a shopping assistant set to explode during Prime Day sales",
+    "link": "https://techcrunch.com/2025/07/08/genai-as-a-shopping-assistant-set-to-explode-during-prime-day-sales/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "SpaceX in talks to raise new funding at $400B valuation",
+    "link": "https://techcrunch.com/2025/07/08/spacex-in-talks-to-raise-new-funding-at-400b-valuation/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Mistral is reportedly in talks to raise $1B",
+    "link": "https://techcrunch.com/2025/07/08/mistral-is-reportedly-in-talks-to-raise-1b/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Activision took down Call of Duty game after PC players hacked, says source",
+    "link": "https://techcrunch.com/2025/07/08/activision-took-down-call-of-duty-game-after-pc-players-hacked-says-source/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "Gmail’s new ‘Manage subscriptions’ tool will help declutter your inbox",
+    "link": "https://techcrunch.com/2025/07/08/gmails-new-manage-subscriptions-tool-will-help-declutter-your-inbox/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "OneText raises $4.5M from Y Combinator, Khosla to reinvent shopping by text",
+    "link": "https://techcrunch.com/2025/07/08/onetext-raises-4-5m-from-y-combinator-khosla-to-reinvent-shopping-by-text/",
+    "source": "https://techcrunch.com/feed/"
+  },
+  {
+    "title": "201 Prime Day Deals Picked By People Who Obsessively Test Gear",
+    "link": "https://www.wired.com/story/best-amazon-prime-deals-july-2025-1/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Everything Samsung Announced at Its Summer Galaxy Unpacked Event",
+    "link": "https://www.wired.com/story/everything-samsung-announced-at-its-summer-galaxy-unpacked-event-july-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Best Prime Day Apple Deals on iPads, AirPods, and MacBooks (2025)",
+    "link": "https://www.wired.com/story/prime-day-apple-deals-2025-1/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "China Has Attempted What Might Be the First-Ever Orbital Refueling of a Satellite",
+    "link": "https://www.wired.com/story/china-jumps-ahead-in-the-race-to-achieve-a-new-kind-of-reuse-in-space/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "The 5 Best Prime Day Action Camera Deals for Thrill Seekers (2025)",
+    "link": "https://www.wired.com/gallery/prime-day-deals-on-action-cameras-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "11 Best Amazon Prime Day Vacuum Deals for Dust and Dirt in 2025",
+    "link": "https://www.wired.com/story/prime-day-vacuum-deals-july-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "A Giant Planet and a Small Star Are Shaking Up Conventional Cosmological Theory",
+    "link": "https://www.wired.com/story/a-giant-planet-and-a-small-star-are-shaking-up-conventional-cosmological-theory/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "13 Best Prime Day Board Game Deals for Kids of All Ages (2025)",
+    "link": "https://www.wired.com/story/prime-day-toy-deals-july-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "6 Best Prime Day Mattress Deals Plus Top Bedding Sales (2025)",
+    "link": "https://www.wired.com/story/amazon-prime-day-mattress-deals-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Best Prime Day Deals Under $100 (2025): LifeStraws, Tech, and More",
+    "link": "https://www.wired.com/story/prime-day-under-100-july-2025-1/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "‘People Are Going to Die’: A Malnutrition Crisis Looms in the Wake of USAID Cuts",
+    "link": "https://www.wired.com/story/usaid-rutf-state-department-supplies-warehouses/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Amazon Prime Day 2025 LIVE: We're Tracking Deals & Trends Today",
+    "link": "https://www.wired.com/live/amazon-prime-day-deals-live-in-25/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Best Prime Day Laptop Deals 2025: MacBooks, Chromebooks, and More",
+    "link": "https://www.wired.com/story/best-prime-day-laptop-deals-2025-1/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "9 Best Prime Day Fitness Tracker Deals and Smart Ring Sales (2025)",
+    "link": "https://www.wired.com/story/prime-day-tracker-and-ring-2025-1/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Best Prime Day Beauty Deals 2025: Hair, Skin, and Dental Care",
+    "link": "https://www.wired.com/story/prime-day-beauty-deals-july-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Grok Is Spewing Antisemitic Garbage on X",
+    "link": "https://www.wired.com/story/grok-antisemitic-posts-x-xai/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Conspiracy Theories About the Texas Floods Lead to Death Threats",
+    "link": "https://www.wired.com/story/texas-floods-conspiracy-theories-geoengineering-weather-weapon/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "OpenAI Poaches 4 High-Ranking Engineers From Tesla, xAI, and Meta",
+    "link": "https://www.wired.com/story/openai-new-hires-scaling/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "8 Prime Day Kindle Deals (Plus Amazon Echo Devices)",
+    "link": "https://www.wired.com/story/prime-kindle-amazon-device-deals-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Volodymyr Zelensky’s Clothing Has Sparked a Polymarket Rebellion",
+    "link": "https://www.wired.com/story/volodymyr-zelensky-suit-polymarket-rebellion/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "16 Best Prime Day Deals on Coffee Machines, Grinders & More",
+    "link": "https://www.wired.com/story/the-best-prime-day-coffee-deals/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "10 Best Prime Day Pet Deals on Amazon (2025)",
+    "link": "https://www.wired.com/story/prime-day-pet-deals-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "5 Best Prime Day TV Deals for All Budgets (2025)",
+    "link": "https://www.wired.com/story/prime-day-tv-deals-july-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "You Can Now Play ‘The Last of Us Part II’ in Chronological Order",
+    "link": "https://www.wired.com/story/you-can-now-play-the-last-of-us-part-ii-in-chronological-order/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Wi-Fi in the US Could Get Worse Under Trump's New Law",
+    "link": "https://www.wired.com/story/wi-fi-in-the-us-could-get-worse-under-trumps-new-law/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "The 47 Best Shows on HBO Max Right Now (July 2025)",
+    "link": "https://www.wired.com/story/hbo-max-best-shows-to-stream-right-now/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Parvati Shallow Says RIP to the ‘Black Widow’ and All That",
+    "link": "https://www.wired.com/story/parvati-shallow-survivor-book-black-widow/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "The Teens Are Taking Waymos Now",
+    "link": "https://www.wired.com/story/the-teens-are-taking-waymos-now/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "26 Best Prime Day Tech Deals on iPads, Kindles, and Phones (2025)",
+    "link": "https://www.wired.com/story/prime-day-tech-deals-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "The 911 Calls Inside ICE Detention Centers",
+    "link": "https://www.wired.com/story/uncanny-valley-podcast-the-911-calls-inside-ice-detention-centers/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Meet the America Party, Elon Musk’s Harebrained Third-Party Scheme",
+    "link": "https://www.wired.com/story/elon-musk-third-party/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "15 Best Tablets (2025), Tested and Reviewed",
+    "link": "https://www.wired.com/gallery/the-best-tablets/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Best 10 Prime Day Kitchen Deals (2025): Breville, Ooni, Oxo",
+    "link": "https://www.wired.com/story/prime-day-kitchen-deals-july-2025/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "22 Best MacBook Accessories (2025), Tested and Reviewed",
+    "link": "https://www.wired.com/gallery/best-macbook-accessories/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Nothing Phone (3) Review: The Designer Phone",
+    "link": "https://www.wired.com/review/nothing-phone-3/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "How to Spot Fake Beauty Products on Amazon: Tips and Advice",
+    "link": "https://www.wired.com/story/how-to-spot-counterfeit-beauty-products-on-amazon/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "9 Best Smartwatches (2025): Apple, Wear OS, Hybrid & Kids' Watches",
+    "link": "https://www.wired.com/gallery/best-smartwatches/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Microsoft, OpenAI, and a US Teachers’ Union Are Hatching a Plan to ‘Bring AI into the Classroom’",
+    "link": "https://www.wired.com/story/microsoft-openai-and-a-us-teachers-union-are-hatching-a-plan-to-bring-ai-into-the-classroom/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "‘Yearners’ Are Sick of Playing It Cool on Dating Apps",
+    "link": "https://www.wired.com/story/yearners-are-sick-of-playing-it-cool-on-dating-apps/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "How to Spot Fake Reviews on Amazon: Tools and Advice",
+    "link": "https://www.wired.com/story/how-to-spot-fake-reviews-amazon/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "KEF Xio Review: So Good, So Expensive",
+    "link": "https://www.wired.com/review/kef-xio/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "10% Home Depot Promo Codes & Coupons | July 2025",
+    "link": "https://www.wired.com/story/home-depot-promo-code/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "‘Anthem’ Is the Latest Video Game Casualty. What Should End-of-Life Care Look Like for Games?",
+    "link": "https://www.wired.com/story/bioware-anthem-shuttered-stop-killing-games/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "9 Best Robot Vacuums (2025): Tested and Reviewed in Real Homes",
+    "link": "https://www.wired.com/gallery/best-robot-vacuums/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "The 8 Best Travel Pillows (2025), Tested on Planes",
+    "link": "https://www.wired.com/gallery/best-travel-pillows/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Best Window Air Conditioners 2025: 10 Picks to Cool You for Years",
+    "link": "https://www.wired.com/gallery/best-window-air-conditioners/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "15 Best Air Purifiers (2025): Coway, AirDoctor, IQAir",
+    "link": "https://www.wired.com/gallery/best-air-purifiers/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "Why Jolly Ranchers Are Banned in the UK but Not the US",
+    "link": "https://www.wired.com/story/why-jolly-ranchers-are-banned-in-the-uk-but-not-the-us-moah-mosh-gras/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "13 Best Wi-Fi Routers of 2025, Tested and Reviewed",
+    "link": "https://www.wired.com/gallery/best-wifi-routers/",
+    "source": "https://www.wired.com/feed/rss"
+  },
+  {
+    "title": "People Are Using AI Chatbots to Guide Their Psychedelic Trips",
+    "link": "https://www.wired.com/story/people-are-using-ai-chatbots-to-guide-their-psychedelic-trips/",
+    "source": "https://www.wired.com/feed/rss"
+  }
+]

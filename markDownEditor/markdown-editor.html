@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+    <style>
+        .editor-container {
+            height: calc(100vh - 120px);
+        }
+        .editor-panel, .preview-panel {
+            height: 100%;
+            overflow-y: auto;
+        }
+        .editor-textarea {
+            height: 100%;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .file-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            min-width: 300px;
+        }
+        .toolbar {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px;
+        }
+        .toolbar button {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .preview-panel {
+            background-color: #fff;
+            padding: 20px;
+            border-left: 1px solid #dee2e6;
+        }
+        .file-item {
+            cursor: pointer;
+            padding: 8px 12px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        .file-item:hover {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        .file-item.active {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .file-actions {
+            display: none;
+        }
+        .file-item:hover .file-actions {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-edit"></i> Markdown Editor
+                </a>
+                <div class="navbar-nav ms-auto">
+                    <button class="btn btn-outline-light btn-sm me-2" id="newFileBtn">
+                        <i class="fas fa-plus"></i> New
+                    </button>
+                    <button class="btn btn-outline-light btn-sm me-2" id="saveBtn">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                    <button class="btn btn-outline-light btn-sm me-2" id="exportBtn">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="btn btn-outline-light btn-sm me-2" id="importBtn">
+                        <i class="fas fa-upload"></i> Import
+                    </button>
+                    <button class="btn btn-outline-light btn-sm" id="filesBtn" data-bs-toggle="modal" data-bs-target="#filesModal">
+                        <i class="fas fa-folder"></i> Files
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button class="btn btn-sm btn-outline-secondary" id="boldBtn" title="Bold">
+                <i class="fas fa-bold"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="italicBtn" title="Italic">
+                <i class="fas fa-italic"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="headingBtn" title="Heading">
+                <i class="fas fa-heading"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="listBtn" title="List">
+                <i class="fas fa-list"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="linkBtn" title="Link">
+                <i class="fas fa-link"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="imageBtn" title="Image">
+                <i class="fas fa-image"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="codeBtn" title="Code">
+                <i class="fas fa-code"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="quoteBtn" title="Quote">
+                <i class="fas fa-quote-left"></i>
+            </button>
+        </div>
+
+        <!-- Main Editor -->
+        <div class="row editor-container">
+            <div class="col-md-6 p-0">
+                <div class="editor-panel">
+                    <textarea class="editor-textarea w-100 p-3" id="editor" placeholder="Start typing your markdown here..."></textarea>
+                </div>
+            </div>
+            <div class="col-md-6 p-0">
+                <div class="preview-panel" id="preview">
+                    <p class="text-muted">Preview will appear here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Files Modal -->
+    <div class="modal fade" id="filesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">My Files</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="file-list" id="fileList">
+                        <p class="text-muted">No files found. Create a new file to get started.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Modal -->
+    <div class="modal fade" id="saveModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="fileName" class="form-label">File Name</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Enter file name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveFileBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import File Input -->
+    <input type="file" id="importFile" accept=".md,.txt" style="display: none;">
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // IndexedDB Storage Service
+        class StorageService {
+            constructor() {
+                this.dbName = 'MarkdownEditorDB';
+                this.version = 1;
+                this.storeName = 'files';
+                this.db = null;
+            }
+
+            async init() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.dbName, this.version);
+                    
+                    request.onerror = () => reject(request.error);
+                    request.onsuccess = () => {
+                        this.db = request.result;
+                        resolve();
+                    };
+                    
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        if (!db.objectStoreNames.contains(this.storeName)) {
+                            const store = db.createObjectStore(this.storeName, { keyPath: 'id' });
+                            store.createIndex('name', 'name', { unique: true });
+                            store.createIndex('lastModified', 'lastModified', { unique: false });
+                        }
+                    };
+                });
+            }
+
+            async saveFile(file) {
+                const transaction = this.db.transaction([this.storeName], 'readwrite');
+                const store = transaction.objectStore(this.storeName);
+                return store.put(file);
+            }
+
+            async getFile(id) {
+                const transaction = this.db.transaction([this.storeName], 'readonly');
+                const store = transaction.objectStore(this.storeName);
+                return new Promise((resolve, reject) => {
+                    const request = store.get(id);
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async getAllFiles() {
+                const transaction = this.db.transaction([this.storeName], 'readonly');
+                const store = transaction.objectStore(this.storeName);
+                return new Promise((resolve, reject) => {
+                    const request = store.getAll();
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async deleteFile(id) {
+                const transaction = this.db.transaction([this.storeName], 'readwrite');
+                const store = transaction.objectStore(this.storeName);
+                return store.delete(id);
+            }
+
+            async fileExists(name) {
+                const transaction = this.db.transaction([this.storeName], 'readonly');
+                const store = transaction.objectStore(this.storeName);
+                const index = store.index('name');
+                return new Promise((resolve, reject) => {
+                    const request = index.get(name);
+                    request.onsuccess = () => resolve(!!request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+        }
+
+        // Markdown Editor Class
+        class MarkdownEditor {
+            constructor() {
+                this.storageService = new StorageService();
+                this.fileManager = new FileManager(this.storageService);
+                this.currentFile = null;
+                this.autoSaveTimer = null;
+                this.isUnsaved = false;
+                
+                this.editor = document.getElementById('editor');
+                this.preview = document.getElementById('preview');
+                
+                this.init();
+            }
+
+            async init() {
+                await this.storageService.init();
+                this.setupEventListeners();
+                this.setupToolbar();
+                this.updatePreview();
+            }
+
+            setupEventListeners() {
+                // Editor input
+                this.editor.addEventListener('input', () => {
+                    this.updatePreview();
+                    this.markAsUnsaved();
+                    this.scheduleAutoSave();
+                });
+
+                // Keyboard shortcuts
+                this.editor.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey || e.metaKey) {
+                        switch(e.key) {
+                            case 's':
+                                e.preventDefault();
+                                this.saveFile();
+                                break;
+                            case 'n':
+                                e.preventDefault();
+                                this.newFile();
+                                break;
+                            case 'b':
+                                e.preventDefault();
+                                this.insertFormatting('**', '**');
+                                break;
+                            case 'i':
+                                e.preventDefault();
+                                this.insertFormatting('*', '*');
+                                break;
+                        }
+                    }
+                });
+
+                // Button events
+                document.getElementById('newFileBtn').addEventListener('click', () => this.newFile());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveFile());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportFile());
+                document.getElementById('importBtn').addEventListener('click', () => this.importFile());
+                document.getElementById('saveFileBtn').addEventListener('click', () => this.performSave());
+                document.getElementById('importFile').addEventListener('change', (e) => this.handleImport(e));
+            }
+
+            setupToolbar() {
+                const toolbarActions = {
+                    'boldBtn': () => this.insertFormatting('**', '**'),
+                    'italicBtn': () => this.insertFormatting('*', '*'),
+                    'headingBtn': () => this.insertFormatting('\n## ', ''),
+                    'listBtn': () => this.insertFormatting('\n- ', ''),
+                    'linkBtn': () => this.insertFormatting('[', '](url)'),
+                    'imageBtn': () => this.insertFormatting('![', '](image-url)'),
+                    'codeBtn': () => this.insertFormatting('`', '`'),
+                    'quoteBtn': () => this.insertFormatting('\n> ', '')
+                };
+
+                Object.keys(toolbarActions).forEach(id => {
+                    document.getElementById(id).addEventListener('click', toolbarActions[id]);
+                });
+            }
+
+            updatePreview() {
+                const content = this.editor.value;
+                if (content.trim()) {
+                    this.preview.innerHTML = marked.parse(content);
+                } else {
+                    this.preview.innerHTML = '<p class="text-muted">Preview will appear here...</p>';
+                }
+            }
+
+            insertFormatting(before, after) {
+                const start = this.editor.selectionStart;
+                const end = this.editor.selectionEnd;
+                const selectedText = this.editor.value.substring(start, end);
+                const newText = before + selectedText + after;
+                
+                this.editor.value = this.editor.value.substring(0, start) + newText + this.editor.value.substring(end);
+                this.editor.focus();
+                this.editor.setSelectionRange(start + before.length, start + before.length + selectedText.length);
+                
+                this.updatePreview();
+                this.markAsUnsaved();
+                this.scheduleAutoSave();
+            }
+
+            newFile() {
+                if (this.isUnsaved && !confirm('You have unsaved changes. Are you sure you want to create a new file?')) {
+                    return;
+                }
+                
+                this.currentFile = null;
+                this.editor.value = '';
+                this.updatePreview();
+                this.isUnsaved = false;
+                this.updateTitle();
+                this.editor.focus();
+            }
+
+            saveFile() {
+                if (!this.currentFile) {
+                    // Show save modal for new file
+                    const modal = new bootstrap.Modal(document.getElementById('saveModal'));
+                    document.getElementById('fileName').value = '';
+                    modal.show();
+                    setTimeout(() => document.getElementById('fileName').focus(), 300);
+                } else {
+                    this.performSave();
+                }
+            }
+
+            async performSave() {
+                const fileName = this.currentFile ? this.currentFile.name : document.getElementById('fileName').value.trim();
+                
+                if (!fileName) {
+                    this.showNotification('Please enter a file name', 'error');
+                    return;
+                }
+
+                // Add .md extension if not present
+                const finalFileName = fileName.endsWith('.md') ? fileName : fileName + '.md';
+
+                // Check if file exists (for new files)
+                if (!this.currentFile && await this.storageService.fileExists(finalFileName)) {
+                    this.showNotification('A file with this name already exists', 'error');
+                    return;
+                }
+
+                try {
+                    const fileData = {
+                        id: this.currentFile ? this.currentFile.id : Date.now().toString(),
+                        name: finalFileName,
+                        content: this.editor.value,
+                        lastModified: new Date().toISOString()
+                    };
+
+                    await this.storageService.saveFile(fileData);
+                    this.currentFile = fileData;
+                    this.isUnsaved = false;
+                    this.updateTitle();
+                    this.showNotification('File saved successfully', 'success');
+                    
+                    // Close modal if open
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('saveModal'));
+                    if (modal) modal.hide();
+                    
+                    this.fileManager.refreshFileList();
+                } catch (error) {
+                    this.showNotification('Error saving file: ' + error.message, 'error');
+                }
+            }
+
+            async loadFile(file) {
+                if (this.isUnsaved && !confirm('You have unsaved changes. Are you sure you want to load another file?')) {
+                    return;
+                }
+                
+                this.currentFile = file;
+                this.editor.value = file.content;
+                this.updatePreview();
+                this.isUnsaved = false;
+                this.updateTitle();
+                this.editor.focus();
+            }
+
+            exportFile() {
+                if (!this.editor.value.trim()) {
+                    this.showNotification('Nothing to export', 'warning');
+                    return;
+                }
+
+                const fileName = this.currentFile ? this.currentFile.name : 'untitled.md';
+                const blob = new Blob([this.editor.value], { type: 'text/markdown' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                this.showNotification('File exported successfully', 'success');
+            }
+
+            importFile() {
+                document.getElementById('importFile').click();
+            }
+
+            handleImport(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    if (this.isUnsaved && !confirm('You have unsaved changes. Are you sure you want to import a file?')) {
+                        return;
+                    }
+                    
+                    this.currentFile = null;
+                    this.editor.value = e.target.result;
+                    this.updatePreview();
+                    this.markAsUnsaved();
+                    this.updateTitle();
+                    this.showNotification('File imported successfully', 'success');
+                };
+                reader.readAsText(file);
+                
+                // Reset file input
+                event.target.value = '';
+            }
+
+            markAsUnsaved() {
+                this.isUnsaved = true;
+                this.updateTitle();
+            }
+
+            updateTitle() {
+                const fileName = this.currentFile ? this.currentFile.name : 'Untitled';
+                const unsavedMark = this.isUnsaved ? ' *' : '';
+                document.title = `${fileName}${unsavedMark} - Markdown Editor`;
+            }
+
+            scheduleAutoSave() {
+                if (this.autoSaveTimer) {
+                    clearTimeout(this.autoSaveTimer);
+                }
+                
+                this.autoSaveTimer = setTimeout(() => {
+                    if (this.currentFile && this.isUnsaved) {
+                        this.performSave();
+                    }
+                }, 2000); // Auto-save after 2 seconds of inactivity
+            }
+
+            showNotification(message, type = 'info') {
+                const container = document.getElementById('notificationContainer');
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show notification`;
+                notification.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                container.appendChild(notification);
+                
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 5000);
+            }
+        }
+
+        // File Manager Class
+        class FileManager {
+            constructor(storageService) {
+                this.storageService = storageService;
+                this.fileList = document.getElementById('fileList');
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                // Refresh file list when modal is shown
+                document.getElementById('filesModal').addEventListener('shown.bs.modal', () => {
+                    this.refreshFileList();
+                });
+            }
+
+            async refreshFileList() {
+                try {
+                    const files = await this.storageService.getAllFiles();
+                    this.renderFileList(files);
+                } catch (error) {
+                    console.error('Error loading files:', error);
+                    this.fileList.innerHTML = '<p class="text-danger">Error loading files</p>';
+                }
+            }
+
+            renderFileList(files) {
+                if (files.length === 0) {
+                    this.fileList.innerHTML = '<p class="text-muted">No files found. Create a new file to get started.</p>';
+                    return;
+                }
+
+                // Sort files by last modified date (newest first)
+                files.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+
+                this.fileList.innerHTML = files.map(file => `
+                    <div class="file-item" data-file-id="${file.id}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${file.name}</strong>
+                                <small class="text-muted d-block">
+                                    ${new Date(file.lastModified).toLocaleString()}
+                                </small>
+                            </div>
+                            <div class="file-actions">
+                                <button class="btn btn-sm btn-outline-primary me-1" onclick="fileManager.loadFile('${file.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary me-1" onclick="fileManager.renameFile('${file.id}')">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="fileManager.deleteFile('${file.id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Add click event to load files
+                this.fileList.querySelectorAll('.file-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        if (!e.target.closest('.file-actions')) {
+                            const fileId = item.dataset.fileId;
+                            this.loadFile(fileId);
+                        }
+                    });
+                });
+            }
+
+            async loadFile(fileId) {
+                try {
+                    const file = await this.storageService.getFile(fileId);
+                    if (file) {
+                        markdownEditor.loadFile(file);
+                        // Close modal
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('filesModal'));
+                        if (modal) modal.hide();
+                    }
+                } catch (error) {
+                    markdownEditor.showNotification('Error loading file: ' + error.message, 'error');
+                }
+            }
+
+            async deleteFile(fileId) {
+                try {
+                    const file = await this.storageService.getFile(fileId);
+                    if (file && confirm(`Are you sure you want to delete "${file.name}"?`)) {
+                        await this.storageService.deleteFile(fileId);
+                        this.refreshFileList();
+                        markdownEditor.showNotification('File deleted successfully', 'success');
+                        
+                        // Clear editor if deleted file was currently loaded
+                        if (markdownEditor.currentFile && markdownEditor.currentFile.id === fileId) {
+                            markdownEditor.newFile();
+                        }
+                    }
+                } catch (error) {
+                    markdownEditor.showNotification('Error deleting file: ' + error.message, 'error');
+                }
+            }
+
+            async renameFile(fileId) {
+                try {
+                    const file = await this.storageService.getFile(fileId);
+                    if (file) {
+                        const newName = prompt('Enter new name:', file.name.replace('.md', ''));
+                        if (newName && newName.trim()) {
+                            const finalName = newName.trim().endsWith('.md') ? newName.trim() : newName.trim() + '.md';
+                            
+                            // Check if new name already exists
+                            if (finalName !== file.name && await this.storageService.fileExists(finalName)) {
+                                markdownEditor.showNotification('A file with this name already exists', 'error');
+                                return;
+                            }
+                            
+                            file.name = finalName;
+                            file.lastModified = new Date().toISOString();
+                            await this.storageService.saveFile(file);
+                            this.refreshFileList();
+                            markdownEditor.showNotification('File renamed successfully', 'success');
+                            
+                            // Update current file if it's the one being renamed
+                            if (markdownEditor.currentFile && markdownEditor.currentFile.id === fileId) {
+                                markdownEditor.currentFile = file;
+                                markdownEditor.updateTitle();
+                            }
+                        }
+                    }
+                } catch (error) {
+                    markdownEditor.showNotification('Error renaming file: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Initialize the app
+        let markdownEditor;
+        let fileManager;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            markdownEditor = new MarkdownEditor();
+            fileManager = markdownEditor.fileManager;
+        });
+
+        // Prevent data loss on page unload
+        window.addEventListener('beforeunload', (e) => {
+            if (markdownEditor && markdownEditor.isUnsaved) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    </script>
+</body>
+</html>
