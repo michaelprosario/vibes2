@@ -1,0 +1,1 @@
+As a software engineer, read the dev_to_articles.json.   Create a list blog post outlining cool links for web developers, cloud developers, ai, and XR devs
