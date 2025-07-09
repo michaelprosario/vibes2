@@ -1,196 +1,306 @@
 class TimeEntryManager {
     constructor(databaseService) {
-        this.db = databaseService;
-        this.storeName = 'timeEntries';
+        this.databaseService = databaseService;
+        this.currentTimesheet = null;
+        this.eventListeners = {};
     }
 
-    async addEntry(timesheetId, project, startTime, endTime, date, notes, tags) {
+    on(event, callback) {
+        if (!this.eventListeners[event]) {
+            this.eventListeners[event] = [];
+        }
+        this.eventListeners[event].push(callback);
+    }
+
+    off(event, callback) {
+        if (this.eventListeners[event]) {
+            this.eventListeners[event] = this.eventListeners[event].filter(cb => cb !== callback);
+        }
+    }
+
+    emit(event, data) {
+        if (this.eventListeners[event]) {
+            this.eventListeners[event].forEach(callback => callback(data));
+        }
+    }
+
+    setCurrentTimesheet(timesheet) {
+        this.currentTimesheet = timesheet;
+        this.emit('timesheetChanged', timesheet);
+    }
+
+    getCurrentTimesheet() {
+        return this.currentTimesheet;
+    }
+
+    async createTimeEntry(projectName, startTime, endTime, date, notes = '') {
+        if (!this.currentTimesheet) {
+            throw new Error('No timesheet selected');
+        }
+
         try {
-            const entry = new TimeEntry(timesheetId, project, startTime, endTime, date, notes, tags);
+            const timeEntry = new TimeEntry(projectName, startTime, endTime, date, notes);
+            const validation = timeEntry.validate();
             
-            if (!entry.isValidEntry()) {
-                throw new Error('Invalid time entry data');
+            if (!validation.isValid) {
+                throw new Error(validation.errors.join(', '));
             }
 
-            await this.db.add(this.storeName, entry.toJSON());
-            return entry;
-        } catch (error) {
-            console.error('Error adding time entry:', error);
-            throw error;
-        }
-    }
-
-    async updateEntry(id, project, startTime, endTime, date, notes, tags) {
-        try {
-            const existingEntry = await this.db.get(this.storeName, id);
-            if (!existingEntry) {
-                throw new Error('Time entry not found');
-            }
-
-            const entry = TimeEntry.fromJSON(existingEntry);
-            entry.update(project, startTime, endTime, date, notes, tags);
+            this.currentTimesheet.addEntry(timeEntry);
+            await this.databaseService.saveTimesheet(this.currentTimesheet);
             
-            if (!entry.isValidEntry()) {
-                throw new Error('Invalid time entry data');
+            this.emit('entryCreated', timeEntry);
+            this.emit('timesheetUpdated', this.currentTimesheet);
+            
+            return timeEntry;
+        } catch (error) {
+            this.emit('error', error);
+            throw error;
+        }
+    }
+
+    async updateTimeEntry(entryId, projectName, startTime, endTime, date, notes = '') {
+        if (!this.currentTimesheet) {
+            throw new Error('No timesheet selected');
+        }
+
+        try {
+            const updatedEntry = this.currentTimesheet.updateEntry(entryId, projectName, startTime, endTime, date, notes);
+            await this.databaseService.saveTimesheet(this.currentTimesheet);
+            
+            this.emit('entryUpdated', updatedEntry);
+            this.emit('timesheetUpdated', this.currentTimesheet);
+            
+            return updatedEntry;
+        } catch (error) {
+            this.emit('error', error);
+            throw error;
+        }
+    }
+
+    async deleteTimeEntry(entryId) {
+        if (!this.currentTimesheet) {
+            throw new Error('No timesheet selected');
+        }
+
+        try {
+            const deletedEntry = this.currentTimesheet.removeEntry(entryId);
+            await this.databaseService.saveTimesheet(this.currentTimesheet);
+            
+            this.emit('entryDeleted', deletedEntry);
+            this.emit('timesheetUpdated', this.currentTimesheet);
+            
+            return deletedEntry;
+        } catch (error) {
+            this.emit('error', error);
+            throw error;
+        }
+    }
+
+    getTimeEntry(entryId) {
+        if (!this.currentTimesheet) {
+            return null;
+        }
+
+        return this.currentTimesheet.getEntry(entryId);
+    }
+
+    getAllTimeEntries() {
+        if (!this.currentTimesheet) {
+            return [];
+        }
+
+        return this.currentTimesheet.getAllEntries();
+    }
+
+    getTimeEntriesByDate(date) {
+        if (!this.currentTimesheet) {
+            return [];
+        }
+
+        return this.currentTimesheet.getEntriesByDate(date);
+    }
+
+    getTimeEntriesByProject(projectName) {
+        if (!this.currentTimesheet) {
+            return [];
+        }
+
+        return this.currentTimesheet.getEntriesByProject(projectName);
+    }
+
+    getTotalHours() {
+        if (!this.currentTimesheet) {
+            return 0;
+        }
+
+        return this.currentTimesheet.getTotalHours();
+    }
+
+    getProjectSummary() {
+        if (!this.currentTimesheet) {
+            return [];
+        }
+
+        return this.currentTimesheet.getProjectSummary();
+    }
+
+    validateTimeEntry(projectName, startTime, endTime, date, notes = '') {
+        try {
+            const timeEntry = new TimeEntry(projectName, startTime, endTime, date, notes);
+            return timeEntry.validate();
+        } catch (error) {
+            return {
+                isValid: false,
+                errors: [error.message]
+            };
+        }
+    }
+
+    async duplicateTimeEntry(entryId, newDate = null) {
+        if (!this.currentTimesheet) {
+            throw new Error('No timesheet selected');
+        }
+
+        try {
+            const originalEntry = this.currentTimesheet.getEntry(entryId);
+            if (!originalEntry) {
+                throw new Error('Entry not found');
             }
 
-            await this.db.update(this.storeName, entry.toJSON());
-            return entry;
-        } catch (error) {
-            console.error('Error updating time entry:', error);
-            throw error;
-        }
-    }
-
-    async deleteEntry(id) {
-        try {
-            await this.db.delete(this.storeName, id);
-        } catch (error) {
-            console.error('Error deleting time entry:', error);
-            throw error;
-        }
-    }
-
-    async getEntry(id) {
-        try {
-            const data = await this.db.get(this.storeName, id);
-            return data ? TimeEntry.fromJSON(data) : null;
-        } catch (error) {
-            console.error('Error getting time entry:', error);
-            throw error;
-        }
-    }
-
-    async getEntriesByTimesheet(timesheetId) {
-        try {
-            const data = await this.db.getByIndex(this.storeName, 'timesheetId', timesheetId);
-            return data.map(entry => TimeEntry.fromJSON(entry))
-                      .sort((a, b) => new Date(b.date) - new Date(a.date) || b.startTime - a.startTime);
-        } catch (error) {
-            console.error('Error getting entries by timesheet:', error);
-            throw error;
-        }
-    }
-
-    async getEntriesByProject(timesheetId, project) {
-        try {
-            const allEntries = await this.getEntriesByTimesheet(timesheetId);
-            return allEntries.filter(entry => 
-                entry.project.toLowerCase().includes(project.toLowerCase())
+            const duplicatedEntry = new TimeEntry(
+                originalEntry.projectName,
+                originalEntry.startTime,
+                originalEntry.endTime,
+                newDate || originalEntry.date,
+                originalEntry.notes
             );
+
+            this.currentTimesheet.addEntry(duplicatedEntry);
+            await this.databaseService.saveTimesheet(this.currentTimesheet);
+            
+            this.emit('entryCreated', duplicatedEntry);
+            this.emit('timesheetUpdated', this.currentTimesheet);
+            
+            return duplicatedEntry;
         } catch (error) {
-            console.error('Error getting entries by project:', error);
+            this.emit('error', error);
             throw error;
         }
     }
 
-    async getEntriesByDateRange(timesheetId, startDate, endDate) {
-        try {
-            const allEntries = await this.getEntriesByTimesheet(timesheetId);
-            return allEntries.filter(entry => {
-                const entryDate = new Date(entry.date);
-                const start = new Date(startDate);
-                const end = new Date(endDate);
-                return entryDate >= start && entryDate <= end;
-            });
-        } catch (error) {
-            console.error('Error getting entries by date range:', error);
-            throw error;
+    async bulkUpdateEntries(updates) {
+        if (!this.currentTimesheet) {
+            throw new Error('No timesheet selected');
         }
-    }
 
-    async getFilteredEntries(timesheetId, filters = {}) {
         try {
-            let entries = await this.getEntriesByTimesheet(timesheetId);
-
-            if (filters.startDate) {
-                const startDate = new Date(filters.startDate);
-                entries = entries.filter(entry => new Date(entry.date) >= startDate);
-            }
-
-            if (filters.endDate) {
-                const endDate = new Date(filters.endDate);
-                entries = entries.filter(entry => new Date(entry.date) <= endDate);
-            }
-
-            if (filters.project) {
-                entries = entries.filter(entry => 
-                    entry.project.toLowerCase().includes(filters.project.toLowerCase())
+            const updatedEntries = [];
+            
+            for (const update of updates) {
+                const entry = this.currentTimesheet.updateEntry(
+                    update.id,
+                    update.projectName,
+                    update.startTime,
+                    update.endTime,
+                    update.date,
+                    update.notes
                 );
+                updatedEntries.push(entry);
             }
 
-            if (filters.tags && filters.tags.length > 0) {
-                entries = entries.filter(entry => 
-                    filters.tags.some(tag => entry.tags.includes(tag))
-                );
+            await this.databaseService.saveTimesheet(this.currentTimesheet);
+            
+            this.emit('entriesBulkUpdated', updatedEntries);
+            this.emit('timesheetUpdated', this.currentTimesheet);
+            
+            return updatedEntries;
+        } catch (error) {
+            this.emit('error', error);
+            throw error;
+        }
+    }
+
+    async bulkDeleteEntries(entryIds) {
+        if (!this.currentTimesheet) {
+            throw new Error('No timesheet selected');
+        }
+
+        try {
+            const deletedEntries = [];
+            
+            for (const entryId of entryIds) {
+                const entry = this.currentTimesheet.removeEntry(entryId);
+                deletedEntries.push(entry);
             }
 
-            return entries;
+            await this.databaseService.saveTimesheet(this.currentTimesheet);
+            
+            this.emit('entriesBulkDeleted', deletedEntries);
+            this.emit('timesheetUpdated', this.currentTimesheet);
+            
+            return deletedEntries;
         } catch (error) {
-            console.error('Error filtering entries:', error);
+            this.emit('error', error);
             throw error;
         }
     }
 
-    async getTotalHours(timesheetId, filters = {}) {
-        try {
-            const entries = await this.getFilteredEntries(timesheetId, filters);
-            return entries.reduce((total, entry) => total + entry.duration, 0);
-        } catch (error) {
-            console.error('Error calculating total hours:', error);
-            throw error;
+    getEntriesByWeek(weekStart) {
+        if (!this.currentTimesheet) {
+            return [];
         }
+
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekEnd.getDate() + 6);
+
+        return this.currentTimesheet.getAllEntries().filter(entry => {
+            const entryDate = new Date(entry.date);
+            return entryDate >= weekStart && entryDate <= weekEnd;
+        });
     }
 
-    async getProjectSummary(timesheetId, filters = {}) {
-        try {
-            const entries = await this.getFilteredEntries(timesheetId, filters);
-            const summary = {};
-
-            entries.forEach(entry => {
-                if (!summary[entry.project]) {
-                    summary[entry.project] = {
-                        totalHours: 0,
-                        entryCount: 0
-                    };
-                }
-                summary[entry.project].totalHours += entry.duration;
-                summary[entry.project].entryCount++;
-            });
-
-            return summary;
-        } catch (error) {
-            console.error('Error generating project summary:', error);
-            throw error;
+    getEntriesByMonth(year, month) {
+        if (!this.currentTimesheet) {
+            return [];
         }
+
+        return this.currentTimesheet.getAllEntries().filter(entry => {
+            const entryDate = new Date(entry.date);
+            return entryDate.getFullYear() === year && entryDate.getMonth() === month;
+        });
     }
 
-    async getDailySummary(timesheetId, filters = {}) {
-        try {
-            const entries = await this.getFilteredEntries(timesheetId, filters);
-            const summary = {};
-
-            entries.forEach(entry => {
-                if (!summary[entry.date]) {
-                    summary[entry.date] = {
-                        totalHours: 0,
-                        entryCount: 0,
-                        projects: new Set()
-                    };
-                }
-                summary[entry.date].totalHours += entry.duration;
-                summary[entry.date].entryCount++;
-                summary[entry.date].projects.add(entry.project);
-            });
-
-            Object.keys(summary).forEach(date => {
-                summary[date].projects = Array.from(summary[date].projects);
-            });
-
-            return summary;
-        } catch (error) {
-            console.error('Error generating daily summary:', error);
-            throw error;
+    getStatistics() {
+        if (!this.currentTimesheet) {
+            return {
+                totalEntries: 0,
+                totalHours: 0,
+                averageHoursPerEntry: 0,
+                projectCount: 0,
+                dateRange: null
+            };
         }
+
+        const entries = this.currentTimesheet.getAllEntries();
+        const totalHours = this.currentTimesheet.getTotalHours();
+        const projects = new Set(entries.map(entry => entry.projectName));
+        const dateRange = this.currentTimesheet.getDateRange();
+
+        return {
+            totalEntries: entries.length,
+            totalHours,
+            averageHoursPerEntry: entries.length > 0 ? totalHours / entries.length : 0,
+            projectCount: projects.size,
+            dateRange
+        };
+    }
+
+    hasCurrentTimesheet() {
+        return this.currentTimesheet !== null;
+    }
+
+    isCurrentTimesheetEmpty() {
+        return !this.currentTimesheet || this.currentTimesheet.isEmpty();
     }
 }

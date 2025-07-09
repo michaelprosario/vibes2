@@ -3,453 +3,400 @@ class UIController {
         this.timesheetManager = timesheetManager;
         this.timeEntryManager = timeEntryManager;
         this.exportService = exportService;
-        this.currentTimesheetId = null;
-        this.currentEditId = null;
-        this.currentEditType = null;
-        this.currentFilters = {};
+        this.isEditMode = false;
+        this.editingEntryId = null;
+        
         this.initializeEventListeners();
+        this.loadTimesheets();
+        this.setCurrentDate();
     }
 
     initializeEventListeners() {
-        const timesheetForm = document.getElementById('timesheetForm');
-        const saveTimesheetBtn = document.getElementById('saveTimesheetBtn');
-        const timeEntryForm = document.getElementById('timeEntryForm');
-        const startTimeInput = document.getElementById('startTime');
-        const endTimeInput = document.getElementById('endTime');
-        const exportJsonBtn = document.getElementById('exportJson');
-        const exportCsvBtn = document.getElementById('exportCsv');
-        const applyFiltersBtn = document.getElementById('applyFilters');
-        const clearFiltersBtn = document.getElementById('clearFilters');
-        const cancelEditBtn = document.getElementById('cancelEdit');
-
-        saveTimesheetBtn.addEventListener('click', this.handleTimesheetSave.bind(this));
-        timeEntryForm.addEventListener('submit', this.handleTimeEntrySubmit.bind(this));
-        startTimeInput.addEventListener('change', this.calculateHours.bind(this));
-        endTimeInput.addEventListener('change', this.calculateHours.bind(this));
-        exportJsonBtn.addEventListener('click', this.handleExportJson.bind(this));
-        exportCsvBtn.addEventListener('click', this.handleExportCsv.bind(this));
-        applyFiltersBtn.addEventListener('click', this.handleApplyFilters.bind(this));
-        clearFiltersBtn.addEventListener('click', this.handleClearFilters.bind(this));
-        cancelEditBtn.addEventListener('click', this.handleCancelEdit.bind(this));
+        this.setupTimesheetEventListeners();
+        this.setupTimeEntryEventListeners();
+        this.setupExportEventListeners();
+        this.setupServiceEventListeners();
     }
 
-    async handleTimesheetSave() {
-        const name = document.getElementById('timesheetName').value;
-        const description = document.getElementById('timesheetDescription').value;
+    setupTimesheetEventListeners() {
+        const createTimesheetBtn = document.getElementById('createTimesheetBtn');
+        const deleteTimesheetBtn = document.getElementById('deleteTimesheetBtn');
+        const timesheetSelect = document.getElementById('timesheetSelect');
+        const timesheetNameInput = document.getElementById('timesheetName');
+
+        createTimesheetBtn.addEventListener('click', () => this.handleCreateTimesheet());
+        deleteTimesheetBtn.addEventListener('click', () => this.handleDeleteTimesheet());
+        timesheetSelect.addEventListener('change', (e) => this.handleTimesheetSelection(e));
+        
+        timesheetNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.handleCreateTimesheet();
+            }
+        });
+    }
+
+    setupTimeEntryEventListeners() {
+        const timeEntryForm = document.getElementById('timeEntryForm');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+        timeEntryForm.addEventListener('submit', (e) => this.handleTimeEntrySubmit(e));
+        cancelEditBtn.addEventListener('click', () => this.cancelEdit());
+    }
+
+    setupExportEventListeners() {
+        const exportJsonBtn = document.getElementById('exportJsonBtn');
+        const exportCsvBtn = document.getElementById('exportCsvBtn');
+
+        exportJsonBtn.addEventListener('click', () => this.handleExportJSON());
+        exportCsvBtn.addEventListener('click', () => this.handleExportCSV());
+    }
+
+    setupServiceEventListeners() {
+        this.timesheetManager.on('timesheetCreated', (timesheet) => {
+            this.showSuccess(`Timesheet "${timesheet.name}" created successfully`);
+            this.loadTimesheets();
+            this.selectTimesheet(timesheet.id);
+        });
+
+        this.timesheetManager.on('timesheetDeleted', (timesheet) => {
+            this.showSuccess(`Timesheet "${timesheet.name}" deleted successfully`);
+            this.loadTimesheets();
+            this.clearTimesheetSelection();
+        });
+
+        this.timeEntryManager.on('entryCreated', (entry) => {
+            this.showSuccess('Time entry added successfully');
+            this.renderTimeEntries();
+            this.clearTimeEntryForm();
+        });
+
+        this.timeEntryManager.on('entryUpdated', (entry) => {
+            this.showSuccess('Time entry updated successfully');
+            this.renderTimeEntries();
+            this.cancelEdit();
+        });
+
+        this.timeEntryManager.on('entryDeleted', (entry) => {
+            this.showSuccess('Time entry deleted successfully');
+            this.renderTimeEntries();
+        });
+
+        this.timeEntryManager.on('error', (error) => {
+            this.showError(error.message);
+        });
+
+        this.timesheetManager.on('error', (error) => {
+            this.showError(error.message);
+        });
+
+        this.exportService.on('exportCompleted', (data) => {
+            this.showSuccess(`Export completed: ${data.filename}`);
+        });
+
+        this.exportService.on('exportError', (error) => {
+            this.showError(`Export failed: ${error.message}`);
+        });
+    }
+
+    async handleCreateTimesheet() {
+        const nameInput = document.getElementById('timesheetName');
+        const name = nameInput.value.trim();
+
+        if (!name) {
+            this.showError('Please enter a timesheet name');
+            return;
+        }
 
         try {
-            if (this.currentEditType === 'timesheet') {
-                await this.timesheetManager.updateTimesheet(this.currentEditId, name, description);
-                this.showAlert('Timesheet updated successfully!', 'success');
-                this.cancelEdit();
-            } else {
-                await this.timesheetManager.createTimesheet(name, description);
-                this.showAlert('Timesheet created successfully!', 'success');
-            }
-            
-            this.clearTimesheetForm();
-            await this.refreshTimesheets();
-            
-            const modal = bootstrap.Modal.getInstance(document.getElementById('timesheetModal'));
-            modal.hide();
+            await this.timesheetManager.createTimesheet(name);
+            nameInput.value = '';
         } catch (error) {
-            this.showAlert(`Error: ${error.message}`, 'danger');
+            this.showError(error.message);
+        }
+    }
+
+    async handleDeleteTimesheet() {
+        const timesheetSelect = document.getElementById('timesheetSelect');
+        const timesheetId = timesheetSelect.value;
+
+        if (!timesheetId) {
+            this.showError('Please select a timesheet to delete');
+            return;
+        }
+
+        if (!confirm('Are you sure you want to delete this timesheet? This action cannot be undone.')) {
+            return;
+        }
+
+        try {
+            await this.timesheetManager.deleteTimesheet(timesheetId);
+        } catch (error) {
+            this.showError(error.message);
+        }
+    }
+
+    async handleTimesheetSelection(event) {
+        const timesheetId = event.target.value;
+        
+        if (!timesheetId) {
+            this.clearTimesheetSelection();
+            return;
+        }
+
+        try {
+            const timesheet = await this.timesheetManager.getTimesheet(timesheetId);
+            if (timesheet) {
+                this.timeEntryManager.setCurrentTimesheet(timesheet);
+                this.updateUIForSelectedTimesheet(timesheet);
+                this.renderTimeEntries();
+            }
+        } catch (error) {
+            this.showError(error.message);
         }
     }
 
     async handleTimeEntrySubmit(event) {
         event.preventDefault();
         
-        if (!this.currentTimesheetId) {
-            this.showAlert('Please select a timesheet first', 'warning');
-            return;
-        }
+        const formData = this.getTimeEntryFormData();
+        if (!formData) return;
 
-        const project = document.getElementById('project').value;
-        const date = document.getElementById('date').value;
+        try {
+            if (this.isEditMode) {
+                await this.timeEntryManager.updateTimeEntry(
+                    this.editingEntryId,
+                    formData.projectName,
+                    formData.startTime,
+                    formData.endTime,
+                    formData.date,
+                    formData.notes
+                );
+            } else {
+                await this.timeEntryManager.createTimeEntry(
+                    formData.projectName,
+                    formData.startTime,
+                    formData.endTime,
+                    formData.date,
+                    formData.notes
+                );
+            }
+        } catch (error) {
+            this.showError(error.message);
+        }
+    }
+
+    getTimeEntryFormData() {
+        const projectName = document.getElementById('projectName').value.trim();
         const startTime = document.getElementById('startTime').value;
         const endTime = document.getElementById('endTime').value;
-        const notes = document.getElementById('notes').value;
-        const tags = document.getElementById('tags').value;
+        const date = document.getElementById('entryDate').value;
+        const notes = document.getElementById('notes').value.trim();
 
-        const startDateTime = new Date(`${date}T${startTime}`);
-        const endDateTime = new Date(`${date}T${endTime}`);
-
-        try {
-            if (this.currentEditType === 'timeEntry') {
-                await this.timeEntryManager.updateEntry(
-                    this.currentEditId, project, startDateTime, endDateTime, date, notes, tags
-                );
-                this.showAlert('Time entry updated successfully!', 'success');
-                this.cancelEdit();
-            } else {
-                await this.timeEntryManager.addEntry(
-                    this.currentTimesheetId, project, startDateTime, endDateTime, date, notes, tags
-                );
-                this.showAlert('Time entry added successfully!', 'success');
-            }
-            
-            this.clearTimeEntryForm();
-            await this.refreshTimeEntries();
-            await this.refreshTimesheets();
-        } catch (error) {
-            this.showAlert(`Error: ${error.message}`, 'danger');
+        if (!projectName || !startTime || !endTime || !date) {
+            this.showError('Please fill in all required fields');
+            return null;
         }
+
+        return { projectName, startTime, endTime, date, notes };
     }
 
-    calculateHours() {
-        const startTime = document.getElementById('startTime').value;
-        const endTime = document.getElementById('endTime').value;
-        const calculatedHours = document.getElementById('calculatedHours');
-
-        if (startTime && endTime) {
-            const start = new Date(`2000-01-01T${startTime}`);
-            const end = new Date(`2000-01-01T${endTime}`);
-            const hours = (end - start) / (1000 * 60 * 60);
-            
-            if (hours > 0) {
-                calculatedHours.value = `${hours.toFixed(2)} hours`;
-            } else {
-                calculatedHours.value = 'Invalid time range';
-            }
-        } else {
-            calculatedHours.value = '';
-        }
-    }
-
-    async handleExportJson() {
-        if (!this.currentTimesheetId) {
-            this.showAlert('Please select a timesheet first', 'warning');
+    async handleExportJSON() {
+        const currentTimesheet = this.timeEntryManager.getCurrentTimesheet();
+        if (!currentTimesheet) {
+            this.showError('Please select a timesheet to export');
             return;
         }
 
         try {
-            await this.exportService.exportTimesheetToJSON(this.currentTimesheetId, this.currentFilters);
-            this.showAlert('JSON export completed!', 'success');
+            this.exportService.exportTimesheetAsJSON(currentTimesheet);
         } catch (error) {
-            this.showAlert(`Export failed: ${error.message}`, 'danger');
+            this.showError(error.message);
         }
     }
 
-    async handleExportCsv() {
-        if (!this.currentTimesheetId) {
-            this.showAlert('Please select a timesheet first', 'warning');
+    async handleExportCSV() {
+        const currentTimesheet = this.timeEntryManager.getCurrentTimesheet();
+        if (!currentTimesheet) {
+            this.showError('Please select a timesheet to export');
             return;
         }
 
         try {
-            await this.exportService.exportTimesheetToCSV(this.currentTimesheetId, this.currentFilters);
-            this.showAlert('CSV export completed!', 'success');
+            this.exportService.exportTimesheetAsCSV(currentTimesheet);
         } catch (error) {
-            this.showAlert(`Export failed: ${error.message}`, 'danger');
+            this.showError(error.message);
         }
     }
 
-    async handleApplyFilters() {
-        const startDate = document.getElementById('filterStartDate').value;
-        const endDate = document.getElementById('filterEndDate').value;
-        const project = document.getElementById('filterProject').value;
-
-        this.currentFilters = {};
-        if (startDate) this.currentFilters.startDate = startDate;
-        if (endDate) this.currentFilters.endDate = endDate;
-        if (project) this.currentFilters.project = project;
-
-        await this.refreshTimeEntries();
-    }
-
-    async handleClearFilters() {
-        this.currentFilters = {};
-        document.getElementById('filterStartDate').value = '';
-        document.getElementById('filterEndDate').value = '';
-        document.getElementById('filterProject').value = '';
-        await this.refreshTimeEntries();
-    }
-
-    handleCancelEdit() {
-        this.cancelEdit();
-    }
-
-    async selectTimesheet(id) {
-        this.currentTimesheetId = id;
-        await this.refreshCurrentTimesheetInfo();
-        await this.refreshTimeEntries();
-        this.showTimeEntryInterface();
-    }
-
-    async editTimesheet(id) {
+    async loadTimesheets() {
         try {
-            const timesheet = await this.timesheetManager.getTimesheet(id);
-            if (!timesheet) {
-                this.showAlert('Timesheet not found', 'danger');
-                return;
-            }
-
-            this.currentEditId = id;
-            this.currentEditType = 'timesheet';
-            
-            document.getElementById('timesheetName').value = timesheet.name;
-            document.getElementById('timesheetDescription').value = timesheet.description;
-            document.getElementById('timesheetModalTitle').textContent = 'Edit Timesheet';
-            
-            const modal = new bootstrap.Modal(document.getElementById('timesheetModal'));
-            modal.show();
+            const timesheets = await this.timesheetManager.getAllTimesheets();
+            this.renderTimesheetOptions(timesheets);
         } catch (error) {
-            this.showAlert(`Error loading timesheet: ${error.message}`, 'danger');
+            this.showError('Failed to load timesheets: ' + error.message);
         }
     }
 
-    async deleteTimesheet(id) {
-        if (!confirm('Are you sure you want to delete this timesheet? This will also delete all associated time entries.')) {
+    renderTimesheetOptions(timesheets) {
+        const timesheetSelect = document.getElementById('timesheetSelect');
+        timesheetSelect.innerHTML = '<option value="">Select a timesheet...</option>';
+
+        timesheets.forEach(timesheet => {
+            const option = document.createElement('option');
+            option.value = timesheet.id;
+            option.textContent = `${timesheet.name} (${timesheet.getEntryCount()} entries)`;
+            timesheetSelect.appendChild(option);
+        });
+    }
+
+    selectTimesheet(timesheetId) {
+        const timesheetSelect = document.getElementById('timesheetSelect');
+        timesheetSelect.value = timesheetId;
+        timesheetSelect.dispatchEvent(new Event('change'));
+    }
+
+    updateUIForSelectedTimesheet(timesheet) {
+        document.getElementById('deleteTimesheetBtn').disabled = false;
+        document.getElementById('exportJsonBtn').disabled = false;
+        document.getElementById('exportCsvBtn').disabled = false;
+        document.getElementById('addEntryBtn').disabled = false;
+        
+        const cardHeader = document.querySelector('#timeEntriesContainer').closest('.card').querySelector('.card-header');
+        cardHeader.innerHTML = `
+            <h3>Time Entries - ${timesheet.name}</h3>
+            <small class="text-muted">
+                ${timesheet.getEntryCount()} entries | 
+                Total: ${timesheet.getFormattedTotalHours()}
+            </small>
+        `;
+    }
+
+    clearTimesheetSelection() {
+        document.getElementById('deleteTimesheetBtn').disabled = true;
+        document.getElementById('exportJsonBtn').disabled = true;
+        document.getElementById('exportCsvBtn').disabled = true;
+        document.getElementById('addEntryBtn').disabled = true;
+        
+        this.timeEntryManager.setCurrentTimesheet(null);
+        this.renderTimeEntries();
+        
+        const cardHeader = document.querySelector('#timeEntriesContainer').closest('.card').querySelector('.card-header');
+        cardHeader.innerHTML = `
+            <h3>Time Entries</h3>
+            <small class="text-muted">Select a timesheet to view entries</small>
+        `;
+    }
+
+    renderTimeEntries() {
+        const container = document.getElementById('timeEntriesContainer');
+        const entries = this.timeEntryManager.getAllTimeEntries();
+
+        if (entries.length === 0) {
+            container.innerHTML = `
+                <div class="text-center text-muted">
+                    <i class="fas fa-clock fa-3x mb-3"></i>
+                    <p>No time entries found</p>
+                </div>
+            `;
             return;
         }
 
-        try {
-            await this.timesheetManager.deleteTimesheet(id);
-            this.showAlert('Timesheet deleted successfully!', 'success');
-            
-            if (this.currentTimesheetId === id) {
-                this.currentTimesheetId = null;
-                this.hideTimeEntryInterface();
-            }
-            
-            await this.refreshTimesheets();
-        } catch (error) {
-            this.showAlert(`Error deleting timesheet: ${error.message}`, 'danger');
-        }
+        const entriesHTML = entries.map(entry => this.renderTimeEntryCard(entry)).join('');
+        container.innerHTML = entriesHTML;
     }
 
-    async editTimeEntry(id) {
-        try {
-            const entry = await this.timeEntryManager.getEntry(id);
-            if (!entry) {
-                this.showAlert('Time entry not found', 'danger');
-                return;
-            }
-
-            this.currentEditId = id;
-            this.currentEditType = 'timeEntry';
-            
-            document.getElementById('project').value = entry.project;
-            document.getElementById('date').value = entry.date;
-            document.getElementById('startTime').value = entry.startTime.toTimeString().slice(0, 5);
-            document.getElementById('endTime').value = entry.endTime.toTimeString().slice(0, 5);
-            document.getElementById('notes').value = entry.notes;
-            document.getElementById('tags').value = entry.tags.join(', ');
-            
-            this.calculateHours();
-            
-            document.querySelector('#timeEntryForm button[type="submit"]').textContent = 'Update Entry';
-            document.getElementById('cancelEdit').style.display = 'inline-block';
-            
-            document.getElementById('timeEntryFormCard').scrollIntoView({ behavior: 'smooth' });
-        } catch (error) {
-            this.showAlert(`Error loading time entry: ${error.message}`, 'danger');
-        }
+    renderTimeEntryCard(entry) {
+        return `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <h5 class="card-title mb-1">${this.escapeHtml(entry.projectName)}</h5>
+                            <small class="text-muted">${entry.getFormattedDate()}</small>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="mb-0">
+                                <i class="fas fa-clock"></i> ${entry.getFormattedTime()}
+                            </p>
+                            <small class="text-muted">Duration: ${entry.getFormattedDuration()}</small>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-0">${this.escapeHtml(entry.notes || 'No notes')}</p>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <button class="btn btn-sm btn-outline-primary me-2" onclick="uiController.editTimeEntry('${entry.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="uiController.deleteTimeEntry('${entry.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
-    async deleteTimeEntry(id) {
+    async editTimeEntry(entryId) {
+        const entry = this.timeEntryManager.getTimeEntry(entryId);
+        if (!entry) {
+            this.showError('Time entry not found');
+            return;
+        }
+
+        document.getElementById('projectName').value = entry.projectName;
+        document.getElementById('startTime').value = entry.startTime;
+        document.getElementById('endTime').value = entry.endTime;
+        document.getElementById('entryDate').value = entry.date;
+        document.getElementById('notes').value = entry.notes;
+
+        this.isEditMode = true;
+        this.editingEntryId = entryId;
+        
+        document.getElementById('addEntryBtn').innerHTML = '<i class="fas fa-save"></i> Update Entry';
+        document.getElementById('cancelEditBtn').style.display = 'inline-block';
+        
+        document.getElementById('projectName').focus();
+    }
+
+    async deleteTimeEntry(entryId) {
         if (!confirm('Are you sure you want to delete this time entry?')) {
             return;
         }
 
         try {
-            await this.timeEntryManager.deleteEntry(id);
-            this.showAlert('Time entry deleted successfully!', 'success');
-            await this.refreshTimeEntries();
-            await this.refreshTimesheets();
+            await this.timeEntryManager.deleteTimeEntry(entryId);
         } catch (error) {
-            this.showAlert(`Error deleting time entry: ${error.message}`, 'danger');
+            this.showError(error.message);
         }
     }
 
     cancelEdit() {
-        this.currentEditId = null;
-        this.currentEditType = null;
+        this.isEditMode = false;
+        this.editingEntryId = null;
+        
+        document.getElementById('addEntryBtn').innerHTML = '<i class="fas fa-plus"></i> Add Entry';
+        document.getElementById('cancelEditBtn').style.display = 'none';
+        
         this.clearTimeEntryForm();
-        this.clearTimesheetForm();
-        document.querySelector('#timeEntryForm button[type="submit"]').textContent = 'Add Entry';
-        document.getElementById('cancelEdit').style.display = 'none';
-        document.getElementById('timesheetModalTitle').textContent = 'Create New Timesheet';
     }
 
     clearTimeEntryForm() {
         document.getElementById('timeEntryForm').reset();
-        document.getElementById('calculatedHours').value = '';
+        this.setCurrentDate();
     }
 
-    clearTimesheetForm() {
-        document.getElementById('timesheetForm').reset();
+    setCurrentDate() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('entryDate').value = today;
     }
 
-    showTimeEntryInterface() {
-        document.getElementById('timeEntryFormCard').style.display = 'block';
-        document.getElementById('filterExportCard').style.display = 'block';
-        document.getElementById('timeEntriesCard').style.display = 'block';
+    showSuccess(message) {
+        this.showAlert(message, 'success');
     }
 
-    hideTimeEntryInterface() {
-        document.getElementById('timeEntryFormCard').style.display = 'none';
-        document.getElementById('filterExportCard').style.display = 'none';
-        document.getElementById('timeEntriesCard').style.display = 'none';
-        document.getElementById('currentTimesheetInfo').innerHTML = '<p class="text-muted">No timesheet selected</p>';
-    }
-
-    async refreshTimesheets() {
-        try {
-            const timesheets = await this.timesheetManager.getAllTimesheetsWithStats();
-            this.renderTimesheets(timesheets);
-        } catch (error) {
-            this.showAlert(`Error loading timesheets: ${error.message}`, 'danger');
-        }
-    }
-
-    async refreshCurrentTimesheetInfo() {
-        if (!this.currentTimesheetId) return;
-
-        try {
-            const timesheet = await this.timesheetManager.getTimesheetWithStats(this.currentTimesheetId);
-            if (timesheet) {
-                document.getElementById('currentTimesheetInfo').innerHTML = `
-                    <h6>${timesheet.name}</h6>
-                    <p class="text-muted mb-1">${timesheet.description || 'No description'}</p>
-                    <small class="text-muted">
-                        <strong>Total:</strong> ${timesheet.getFormattedTotalHours()}<br>
-                        <strong>Entries:</strong> ${timesheet.entryCount}
-                    </small>
-                `;
-            }
-        } catch (error) {
-            console.error('Error refreshing current timesheet info:', error);
-        }
-    }
-
-    async refreshTimeEntries() {
-        if (!this.currentTimesheetId) return;
-
-        try {
-            const entries = await this.timeEntryManager.getFilteredEntries(this.currentTimesheetId, this.currentFilters);
-            const totalHours = await this.timeEntryManager.getTotalHours(this.currentTimesheetId, this.currentFilters);
-            
-            this.renderTimeEntries(entries);
-            this.updateTotalHours(totalHours);
-        } catch (error) {
-            this.showAlert(`Error loading time entries: ${error.message}`, 'danger');
-        }
-    }
-
-    renderTimesheets(timesheets) {
-        const container = document.getElementById('timesheetsList');
-        
-        if (timesheets.length === 0) {
-            container.innerHTML = `
-                <div class="text-center text-muted">
-                    <i class="bi bi-clipboard" style="font-size: 3rem;"></i>
-                    <p class="mt-2">No timesheets yet. Create your first timesheet!</p>
-                </div>
-            `;
-            return;
-        }
-
-        const timesheetsHTML = timesheets.map(timesheet => this.renderTimesheet(timesheet)).join('');
-        container.innerHTML = timesheetsHTML;
-    }
-
-    renderTimesheet(timesheet) {
-        const isSelected = this.currentTimesheetId === timesheet.id;
-        const selectedClass = isSelected ? 'border-primary bg-light' : '';
-        
-        return `
-            <div class="card mb-2 ${selectedClass}">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <h6 class="card-title mb-1">${timesheet.name}</h6>
-                            <p class="card-text text-muted mb-1">${timesheet.description || 'No description'}</p>
-                            <small class="text-muted">Created: ${timesheet.getFormattedCreatedDate()}</small>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="text-center">
-                                <div class="fw-bold">${timesheet.getFormattedTotalHours()}</div>
-                                <small class="text-muted">${timesheet.entryCount} entries</small>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="btn-group w-100" role="group">
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="uiController.selectTimesheet('${timesheet.id}')">
-                                    ${isSelected ? '<i class="bi bi-check-circle"></i> Selected' : '<i class="bi bi-circle"></i> Select'}
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="uiController.editTimesheet('${timesheet.id}')">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="uiController.deleteTimesheet('${timesheet.id}')">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    renderTimeEntries(entries) {
-        const container = document.getElementById('timeEntriesList');
-        
-        if (entries.length === 0) {
-            container.innerHTML = `
-                <div class="text-center text-muted">
-                    <i class="bi bi-clock-history" style="font-size: 3rem;"></i>
-                    <p class="mt-2">No time entries found.</p>
-                </div>
-            `;
-            return;
-        }
-
-        const entriesHTML = entries.map(entry => this.renderTimeEntry(entry)).join('');
-        container.innerHTML = entriesHTML;
-    }
-
-    renderTimeEntry(entry) {
-        const tagsHTML = entry.tags.length > 0 
-            ? entry.tags.map(tag => `<span class="badge bg-secondary me-1">${tag}</span>`).join('')
-            : '<span class="text-muted">No tags</span>';
-
-        return `
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h6 class="card-title">${entry.project}</h6>
-                            <p class="card-text">${entry.notes}</p>
-                            <div class="mb-2">${tagsHTML}</div>
-                            <small class="text-muted">
-                                <strong>Date:</strong> ${entry.getFormattedDate()} | 
-                                <strong>Time:</strong> ${entry.getFormattedStartTime()} - ${entry.getFormattedEndTime()}
-                            </small>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <div class="mb-2">
-                                <span class="badge bg-primary fs-6">${entry.getFormattedDuration()}</span>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="uiController.editTimeEntry('${entry.id}')">
-                                    <i class="bi bi-pencil"></i> Edit
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="uiController.deleteTimeEntry('${entry.id}')">
-                                    <i class="bi bi-trash"></i> Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    updateTotalHours(totalHours) {
-        const totalElement = document.getElementById('totalHours');
-        totalElement.textContent = `Total: ${totalHours.toFixed(2)} hours`;
+    showError(message) {
+        this.showAlert(message, 'danger');
     }
 
     showAlert(message, type) {
@@ -459,12 +406,20 @@ class UIController {
             ${message}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         `;
-        
+
         const container = document.querySelector('.container');
         container.insertBefore(alertDiv, container.firstChild);
-        
+
         setTimeout(() => {
-            alertDiv.remove();
+            if (alertDiv.parentNode) {
+                alertDiv.parentNode.removeChild(alertDiv);
+            }
         }, 5000);
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 }
