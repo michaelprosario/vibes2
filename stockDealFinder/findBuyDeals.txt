@@ -1,0 +1,5 @@
+- Read multi_rss_posts.json.  
+- Create markdown file called stock_news_today.md with headlines and links connected to tech companies.
+    - Highlight news of companies trending down
+    - Highlight news of companies trending up
+    - Create summary of key trends

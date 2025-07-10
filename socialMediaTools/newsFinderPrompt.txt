@@ -1,2 +1,3 @@
 As a software engineer, read the multi_rss_posts.json.   
-Create a list blog post outlining cool links for web developers, cloud developers, ai, and XR devs
+Create a list blog post outlining cool links for web developers, cl
+oud developers, ai, and XR devs
