@@ -1,21 +1,31 @@
-# Google Developer News Sources
-
-Here is a list of top blogs and news sources for Google developer news, categorized by area of interest.
-
-### General
-*   **Google Developers Blog:** [https://developers.googleblog.com/](https://developers.googleblog.com/)
-
-### Web Development
-*   **Chrome for Developers:** [https://developer.chrome.com/blog/](https://developer.chrome.com/blog/)
-
-### Cloud Computing
-*   **Google Cloud Blog:** [https://cloud.google.com/blog/](https://cloud.google.com/blog/)
-*   **Google Cloud Community Blog:** [https://www.googlecloudcommunity.com/gc/Google-Cloud-Blog/bg-p/google-cloud-blog](https://www.googlecloudcommunity.com/gc/Google-Cloud-Blog/bg-p/google-cloud-blog)
-
-### AI/ML
-*   **Google AI Blog:** [https://ai.googleblog.com/](https://ai.googleblog.com/)
-*   **Google Cloud AI & Machine Learning Blog:** [https://cloud.google.com/blog/products/ai-machine-learning](https://cloud.google.com/blog/products/ai-machine-learning)
-
-### Game Development
-*   **Google for Games Developer Summit:** [https://developersonair.withgoogle.com/events/google-for-games-developer-summit](https://developersonair.withgoogle.com/events/google-for-games-developer-summit)
-*   **Firebase Blog (often includes game dev news):** [https://firebase.blog/](https://firebase.blog/)
+https://developers.googleblog.com/
+https://developer.chrome.com/blog/
+https://cloud.google.com/blog/
+https://www.googlecloudcommunity.com/gc/Google-Cloud-Blog/bg-p/google-cloud-blog
+https://ai.googleblog.com/
+https://cloud.google.com/blog/products/ai-machine-learning
+https://developersonair.withgoogle.com/events/google-for-games-developer-summit
+https://firebase.blog/
+https://InnovativeTeams.NET/feed
+http://feeds.feedburner.com/GDBcode
+https://github.blog/feed/
+http://www.smashingmagazine.com/feed/
+https://web.dev/static/blog/feed.xml
+https://web.dev/static/articles/feed.xml
+https://www.sitepoint.com/sitepoint.rss
+https://dev.to/feed
+https://changelog.com/feed
+https://engineering.fb.com/feed/
+https://feed.infoq.com
+https://martinfowler.com/feed.atom
+http://feeds.codenewbie.org/cnpodcast.xml
+https://code.visualstudio.com/feed.xml
+https://feeds.dzone.com/javascript
+https://www.youtube.com/feeds/videos.xml?user=GoogleTechTalks
+https://engineering.fb.com/feed/
+https://medium.com/feed/androiddevelopers
+https://android-developers.googleblog.com/feeds/posts/default
+https://proandroiddev.com/feed
+https://ionicframework.com/blog/feed.xml
+https://unitycoder.com/blog/feed/
+https://blog.theknightsofunity.com/feed

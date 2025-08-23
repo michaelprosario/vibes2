@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polar Audio Visualizer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/addons/p5.sound.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            color: #ff6b35;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        input[type="url"] {
+            width: 300px;
+            padding: 8px;
+            margin: 5px;
+            border: 2px solid #ff6b35;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: linear-gradient(45deg, #f7931e, #ff6b35);
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div>
+            <input type="url" id="audioUrl" placeholder="Enter MP3 URL..." 
+                   value="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav">
+        </div>
+        <button onclick="loadAudio()">Load Audio</button>
+        <button onclick="togglePlay()">Play/Pause</button>
+    </div>
+
+    <script>
+        let song;
+        let fft;
+        let amplitude;
+        let isPlaying = false;
+        let particles = [];
+        let time = 0;
+        let noiseOffset = 0;
+        
+        // Sunset color palette
+        const sunsetColors = [
+            [255, 107, 53],   // Orange
+            [247, 147, 30],   // Golden orange
+            [255, 87, 87],    // Coral
+            [255, 195, 77],   // Golden yellow
+            [255, 140, 105],  // Peach
+            [184, 45, 145],   // Purple
+            [75, 0, 130],     // Indigo
+        ];
+        
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            colorMode(RGB, 255);
+            
+            // Initialize FFT and amplitude
+            fft = new p5.FFT(0.8, 512);
+            amplitude = new p5.Amplitude();
+            
+            // Create particle system
+            for (let i = 0; i < 150; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function draw() {
+            // Dynamic background with subtle gradient
+            drawBackground();
+            
+            if (song && song.isLoaded()) {
+                // Get audio data
+                let spectrum = fft.analyze();
+                let level = amplitude.getLevel();
+                
+                translate(width/2, height/2);
+                
+                // Main circular visualization
+                drawSpectralCircle(spectrum, level);
+                
+                // Particle system
+                updateParticles(spectrum, level);
+                
+                // Orbital rings
+                drawOrbitalRings(spectrum, level);
+                
+                // Central pulsing core
+                drawPulsingCore(level);
+            }
+            
+            time += 0.02;
+            noiseOffset += 0.01;
+        }
+        
+        function drawBackground() {
+            // Animated gradient background
+            for (let y = 0; y < height; y++) {
+                let inter = map(y, 0, height, 0, 1);
+                let c1 = color(10, 10, 30 + sin(time * 0.5) * 10);
+                let c2 = color(40, 20, 60 + cos(time * 0.3) * 15);
+                let c = lerpColor(c1, c2, inter);
+                stroke(c);
+                line(0, y, width, y);
+            }
+        }
+        
+        function drawSpectralCircle(spectrum, level) {
+            let radius = 100 + level * 200;
+            
+            beginShape();
+            noFill();
+            
+            for (let i = 0; i < spectrum.length; i++) {
+                let angle = map(i, 0, spectrum.length, 0, TWO_PI * 2);
+                let amp = spectrum[i];
+                let r = radius + map(amp, 0, 255, 0, 150);
+                
+                // Add noise for organic feel
+                r += noise(i * 0.1, time) * 30;
+                
+                let x = cos(angle) * r;
+                let y = sin(angle) * r;
+                
+                // Dynamic color based on frequency and amplitude
+                let colorIndex = floor(map(i, 0, spectrum.length, 0, sunsetColors.length));
+                let c = sunsetColors[colorIndex % sunsetColors.length];
+                let alpha = map(amp, 0, 255, 50, 255);
+                
+                stroke(c[0], c[1], c[2], alpha);
+                strokeWeight(2 + level * 3);
+                
+                if (i === 0) {
+                    vertex(x, y);
+                } else {
+                    vertex(x, y);
+                }
+                
+                // Add radiating lines for high frequencies
+                if (amp > 200) {
+                    let outerR = r + 50;
+                    let outerX = cos(angle) * outerR;
+                    let outerY = sin(angle) * outerR;
+                    line(x, y, outerX, outerY);
+                }
+            }
+            endShape(CLOSE);
+        }
+        
+        function drawOrbitalRings(spectrum, level) {
+            let numRings = 3;
+            
+            for (let ring = 0; ring < numRings; ring++) {
+                let baseRadius = 200 + ring * 80;
+                let ringSpeed = 0.5 + ring * 0.3;
+                
+                push();
+                rotate(time * ringSpeed);
+                
+                let segments = 8 + ring * 4;
+                for (let i = 0; i < segments; i++) {
+                    let angle = (TWO_PI / segments) * i;
+                    let freqIndex = floor(map(i, 0, segments, 0, spectrum.length/4));
+                    let amp = spectrum[freqIndex] || 0;
+                    
+                    let r = baseRadius + amp * 0.5 + level * 50;
+                    let x = cos(angle) * r;
+                    let y = sin(angle) * r;
+                    
+                    let colorIndex = (ring + floor(time * 10)) % sunsetColors.length;
+                    let c = sunsetColors[colorIndex];
+                    
+                    fill(c[0], c[1], c[2], 150 + amp * 0.4);
+                    noStroke();
+                    
+                    let size = 5 + amp * 0.1 + level * 10;
+                    
+                    // Different shapes for each ring
+                    if (ring === 0) {
+                        ellipse(x, y, size, size);
+                    } else if (ring === 1) {
+                        rectMode(CENTER);
+                        push();
+                        translate(x, y);
+                        rotate(angle + time);
+                        rect(0, 0, size, size);
+                        pop();
+                    } else {
+                        // Triangle
+                        push();
+                        translate(x, y);
+                        rotate(angle + time * 2);
+                        triangle(0, -size/2, -size/2, size/2, size/2, size/2);
+                        pop();
+                    }
+                }
+                pop();
+            }
+        }
+        
+        function drawPulsingCore(level) {
+            let coreSize = 30 + level * 100;
+            
+            // Outer glow
+            for (let i = 3; i > 0; i--) {
+                let glowSize = coreSize * (1 + i * 0.3);
+                let alpha = 30 / i;
+                fill(255, 140, 105, alpha);
+                noStroke();
+                ellipse(0, 0, glowSize, glowSize);
+            }
+            
+            // Core
+            fill(255, 195, 77, 200 + level * 55);
+            ellipse(0, 0, coreSize, coreSize);
+            
+            // Inner detail
+            fill(255, 255, 255, 100 + level * 100);
+            ellipse(0, 0, coreSize * 0.6, coreSize * 0.6);
+        }
+        
+        function updateParticles(spectrum, level) {
+            for (let particle of particles) {
+                particle.update(spectrum, level);
+                particle.display();
+            }
+        }
+        
+        class Particle {
+            constructor() {
+                this.reset();
+                this.life = random(0.5, 1);
+            }
+            
+            reset() {
+                this.angle = random(TWO_PI);
+                this.radius = random(300, 600);
+                this.speed = random(0.01, 0.03);
+                this.size = random(2, 8);
+                this.colorIndex = floor(random(sunsetColors.length));
+                this.noiseOffset = random(1000);
+            }
+            
+            update(spectrum, level) {
+                this.angle += this.speed + level * 0.02;
+                
+                // Use audio data to influence movement
+                let freqIndex = floor(map(this.angle, 0, TWO_PI, 0, spectrum.length));
+                let freqAmp = spectrum[freqIndex] || 0;
+                
+                this.radius += sin(this.angle * 3 + time) * 2;
+                this.radius += noise(this.noiseOffset + time) * 10 - 5;
+                
+                // React to audio
+                this.size = this.size + (freqAmp * 0.05 - this.size) * 0.1;
+                
+                this.life -= 0.001;
+                if (this.life <= 0) {
+                    this.reset();
+                    this.life = random(0.5, 1);
+                }
+            }
+            
+            display() {
+                let x = cos(this.angle) * this.radius;
+                let y = sin(this.angle) * this.radius;
+                
+                let c = sunsetColors[this.colorIndex];
+                fill(c[0], c[1], c[2], this.life * 150);
+                noStroke();
+                ellipse(x, y, this.size, this.size);
+                
+                // Trailing effect
+                fill(c[0], c[1], c[2], this.life * 50);
+                ellipse(x * 0.98, y * 0.98, this.size * 0.7, this.size * 0.7);
+            }
+        }
+        
+        function loadAudio() {
+            let url = document.getElementById('audioUrl').value;
+            if (url) {
+                if (song) {
+                    song.stop();
+                }
+                song = loadSound(url, () => {
+                    console.log('Audio loaded successfully');
+                }, (err) => {
+                    console.error('Error loading audio:', err);
+                    alert('Failed to load audio. Please check the URL.');
+                });
+            }
+        }
+        
+        function togglePlay() {
+            if (song && song.isLoaded()) {
+                if (isPlaying) {
+                    song.pause();
+                } else {
+                    song.play();
+                }
+                isPlaying = !isPlaying;
+            } else {
+                alert('Please load an audio file first.');
+            }
+        }
+        
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+        
+        function keyPressed() {
+            if (key === ' ') {
+                togglePlay();
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
