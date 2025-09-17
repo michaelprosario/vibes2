@@ -1,0 +1,1 @@
+Read each blog mentioned in @/workspaces/vibes2/socialMediaTools2/newsSources.md. pull the 5 latest links from each blog.  Write headline and blog link to news2.md   

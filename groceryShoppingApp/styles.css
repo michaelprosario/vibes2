@@ -1,0 +1,64 @@
+/* Custom styles for Grocery Shopping App */
+
+.list-group-item.completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+    background-color: #f8f9fa;
+}
+
+.category-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.item-actions {
+    white-space: nowrap;
+}
+
+.item-quantity {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.category-produce { background-color: #28a745; }
+.category-dairy { background-color: #17a2b8; }
+.category-meat { background-color: #dc3545; }
+.category-pantry { background-color: #ffc107; color: #000; }
+.category-frozen { background-color: #6f42c1; }
+.category-bakery { background-color: #fd7e14; }
+.category-beverages { background-color: #20c997; }
+.category-snacks { background-color: #e83e8c; }
+.category-household { background-color: #6c757d; }
+.category-other { background-color: #343a40; }
+
+.stats {
+    font-size: 0.9rem;
+}
+
+#empty-state {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.shopping-item {
+    transition: all 0.3s ease;
+}
+
+.shopping-item:hover {
+    background-color: #f8f9fa;
+}
+
+.btn-group-sm .btn {
+    font-size: 0.75rem;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
