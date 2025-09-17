@@ -105,7 +105,7 @@ class ProjectManager {
 
             if (response.ok) {
                 const updatedProject = await response.json();
-                const index = this.projects.findIndex(p => p.id === projectId);
+                const index = this.projects.findIndex(p => p.project_id === projectId);
                 if (index !== -1) {
                     this.projects[index] = updatedProject;
                 }
@@ -137,7 +137,7 @@ class ProjectManager {
             });
 
             if (response.ok) {
-                this.projects = this.projects.filter(p => p.id !== projectId);
+                this.projects = this.projects.filter(p => p.project_id !== projectId);
                 this.filterProjects();
                 this.updateStats();
                 this.showAlert('Project deleted successfully!', 'success');
@@ -152,10 +152,10 @@ class ProjectManager {
     }
 
     editProject(project) {
-        document.getElementById('edit-project-id').value = project.id;
+        document.getElementById('edit-project-id').value = project.project_id;
         document.getElementById('edit-project-name').value = project.name;
         document.getElementById('edit-project-description').value = project.description || '';
-        document.getElementById('edit-project-color').value = project.color || '#0d6efd';
+        document.getElementById('edit-project-color').value = project.color_code || '#0d6efd';
         document.getElementById('edit-project-deadline').value = project.deadline || '';
         document.getElementById('edit-project-status').value = project.status;
 
@@ -237,7 +237,7 @@ class ProjectManager {
                             <div class="col-md-4 text-md-end">
                                 <div class="project-stats mb-2">
                                     <div class="stat-item">
-                                        <span class="stat-value" id="project-hours-${project.id}">0h</span>
+                                        <span class="stat-value" id="project-hours-${project.project_id}">0h</span>
                                         <span class="stat-label">Total Time</span>
                                     </div>
                                 </div>
@@ -245,7 +245,7 @@ class ProjectManager {
                                     <button class="btn btn-sm btn-outline-primary" onclick="projectManager.editProject(${JSON.stringify(project).replace(/"/g, '&quot;')})">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="projectManager.deleteProject('${project.id}')">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="projectManager.deleteProject('${project.project_id}')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -265,16 +265,16 @@ class ProjectManager {
     async loadProjectTimeStats() {
         for (const project of this.filteredProjects) {
             try {
-                const response = await fetch(`/api/projects/${project.id}/time-stats`);
+                const response = await fetch(`/api/projects/${project.project_id}/time-stats`);
                 if (response.ok) {
                     const stats = await response.json();
-                    const element = document.getElementById(`project-hours-${project.id}`);
+                    const element = document.getElementById(`project-hours-${project.project_id}`);
                     if (element) {
                         element.textContent = this.formatDuration(stats.total_hours || 0);
                     }
                 }
             } catch (error) {
-                console.error(`Error loading stats for project ${project.id}:`, error);
+                console.error(`Error loading stats for project ${project.project_id}:`, error);
             }
         }
     }

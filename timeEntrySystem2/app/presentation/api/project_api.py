@@ -22,10 +22,7 @@ def get_projects():
         else:
             projects = project_service.get_user_projects(user_id)
         
-        return jsonify({
-            'projects': [project.to_dict() for project in projects],
-            'count': len(projects)
-        })
+        return jsonify([project.to_dict() for project in projects])
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -169,6 +166,26 @@ def get_project_time_summary(project_id):
         summary = project_service.get_project_time_summary(project_id, start_date, end_date)
         
         return jsonify(summary)
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@project_bp.route('/<project_id>/time-stats', methods=['GET'])
+def get_project_time_stats(project_id):
+    """Get time statistics for a specific project"""
+    try:
+        project_service = current_app.project_service
+        
+        # Get total hours for this project
+        time_entry_service = current_app.time_entry_service
+        entries = time_entry_service.get_entries_by_project(project_id)
+        
+        total_hours = sum(entry.duration_hours for entry in entries if entry.duration_hours)
+        
+        return jsonify({
+            'total_hours': total_hours,
+            'entry_count': len(entries)
+        })
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500

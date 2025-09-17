@@ -38,10 +38,7 @@ def get_time_entries():
         else:
             entries = time_entry_service.get_user_entries(user_id)
         
-        return jsonify({
-            'entries': [entry.to_dict() for entry in entries],
-            'count': len(entries)
-        })
+        return jsonify([entry.to_dict() for entry in entries])
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -209,5 +206,29 @@ def duplicate_time_entry(entry_id):
     
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@time_entry_bp.route('/running', methods=['GET'])
+def get_running_time_entry():
+    """Get currently running time entry for a user"""
+    try:
+        user_id = request.args.get('user_id', 'default_user')
+        time_entry_service = current_app.time_entry_service
+        
+        # Get all entries for user and find the running one
+        entries = time_entry_service.get_user_entries(user_id)
+        running_entry = None
+        
+        for entry in entries:
+            if not entry.end_time:  # Running entry has no end time
+                running_entry = entry
+                break
+        
+        if running_entry:
+            return jsonify(running_entry.to_dict())
+        else:
+            return jsonify({'message': 'No running time entry found'}), 404
+    
     except Exception as e:
         return jsonify({'error': str(e)}), 500

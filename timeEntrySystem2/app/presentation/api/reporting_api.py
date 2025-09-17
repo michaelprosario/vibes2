@@ -221,3 +221,28 @@ def export_data():
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@reporting_bp.route('/summary', methods=['GET'])
+def get_summary():
+    """Get overall time tracking summary"""
+    try:
+        user_id = request.args.get('user_id', 'default_user')
+        reporting_service = current_app.reporting_service
+        
+        # Get today's summary
+        today = date.today()
+        daily_summary = reporting_service.get_daily_summary(user_id, today)
+        
+        # Get this week's summary
+        week_start = today - timedelta(days=today.weekday())
+        weekly_summary = reporting_service.get_weekly_summary(user_id, week_start)
+        
+        return jsonify({
+            'total_hours': daily_summary.get('total_hours', 0),
+            'week_hours': weekly_summary.get('total_hours', 0),
+            'entries_today': daily_summary.get('entry_count', 0),
+            'last_updated': datetime.now().isoformat()
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

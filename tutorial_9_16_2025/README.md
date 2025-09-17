@@ -1,5 +1,7 @@
 
 ### Introduction Lab
+- Notebook LM
+- Gemini CSS 
 - Comment to code
     - https://patterns.hattori.dev/general/comment-to-code/
 
@@ -37,4 +39,5 @@ based on requirements.md, draft a technical design of the domain.
 
 # Reference
 - https://patterns.hattori.dev/general/code-to-document/
+- https://github.com/github/awesome-copilot
 - https://www.anthropic.com/engineering/claude-code-best-practices
